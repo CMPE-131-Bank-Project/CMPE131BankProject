@@ -5,70 +5,107 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registration</title>
         <link rel="stylesheet" href="mystyles.css">
+        <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
+        <script src="validation.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <body>
         
         <div class="wrapper">
-            <form action="/process.php" method="post"> 
+            <form action="/process.php" id="register" method="post"> 
                 <h1>Register</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="first" required>
+                    <input type="text" placeholder="" id="first" name ="first" required>
                     <span class="floating-label">First Name</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="last" required>
+                    <input type="text" placeholder="" id="last" name ="last" required>
                     <span class="floating-label">Last Name</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="username" required>
+                    <input type="text" placeholder="" id="username" name ="username" required>
                     <span class="floating-label">Username</span>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="" name="password" required>
-                    <span class="floating-label">Password</span>
+                    <input type="password" placeholder="" id="password" name="password" required>
+                    <span class="floating-label">Password (minimum 8 characters, 1 letter, & 1 number)</span>
+                    <span id='message'></span>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="" name="cpassword" required>
+                    <input type="password" placeholder="" id="cpassword" name="cpassword" required>
                     <span class="floating-label">Confirm Password</span>
+                    <span id='message2'></span>
+                    <script>
+                        $('#password, #cpassword').on('keyup', function () {
+                            if ($('#password').val() == $('#cpassword').val()) {
+                                $('#message').html('Passwords Match ✓').css('color', 'green');
+                                $('#message2').html('Passwords Match ✓').css('color', 'green');
+                            } else {
+                                $('#message').html('Passwords Do Not Match ✕').css('color', 'red');
+                                $('#message2').html('Passwords Do Not Match ✕').css('color', 'red');
+                            }
+                        });
+                    </script>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="email" required>
+                    <input type="password" maxlength="4" placeholder="" id="pin" name="pin" required>
+                    <span class="floating-label">4-Digit Pin</span>
+                    <span id='message3'></span>
+                </div>
+                <div class="input-box">
+                    <input type="password" maxlength="4" placeholder="" id="cpin" name="cpin" required>
+                    <span class="floating-label">Confirm 4-Digit Pin</span>
+                    <span id='message4'></span>
+                    <script>
+                        $('#pin, #cpin').on('keyup', function () {
+                            if ($('#pin').val() == $('#cpin').val()) {
+                                $('#message3').html('Pins Match ✓').css('color', 'green');
+                                $('#message4').html('Pins Match ✓').css('color', 'green');
+                            } else {
+                                $('#message3').html('Pins Do Not Match ✕').css('color', 'red');
+                                $('#message4').html('Pins Do Not Match ✕').css('color', 'red');
+                            }
+                        });
+                    </script>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="" id="email" name ="email" required>
                     <span class="floating-label">Email</span>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="" maxlength="9" name="ssn" required>
+                    <input type="password" placeholder="" id="ssn" maxlength="9" name="ssn" required>
                     <span class="floating-label">Social Security Number (Format: *********)</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" maxlength="10" name ="phone" required>
+                    <input type="text" placeholder="" id="phone" maxlength="10" name ="phone" required>
                     <span class="floating-label">Phone Number (Format: **********)</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" maxlength="2" name ="lstate" required>
+                    <input type="text" placeholder="" id="lstate" maxlength="2" name ="lstate" required>
                     <span class="floating-label">License State</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="license" required>
+                    <input type="text" placeholder="" id="license" name ="license" required>
                     <span class="floating-label">License Number</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="address" required>
+                    <input type="text" placeholder="" id="address" name ="address" required>
                     <span class="floating-label">Address Line 1</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="address2">
+                    <input type="text" placeholder="" id="address2" name ="address2">
                     <span class="floating-label" id="cus">Address Line 2 (Optional)</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="city" required>
+                    <input type="text" placeholder="" id="city" name ="city" required>
                     <span class="floating-label">City</span>
                 </div>
                 <div class="input-box">
-                    <input type="select" placeholder="" maxlength="2" name ="state" required>
+                    <input type="select" placeholder="" id="state" maxlength="2" name ="state" required>
                     <span class="floating-label">State (ex: CA, AK, etc.)</span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="" name ="zip" required>
+                    <input type="text" placeholder="" id="zip" name ="zip" required>
                     <span class="floating-label">Zip Code</span>
                 </div>
 
