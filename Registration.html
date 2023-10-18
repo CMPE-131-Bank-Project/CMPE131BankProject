@@ -52,6 +52,13 @@
                     <span class="floating-label">4-Digit Pin</span>
                     <span id='message3'></span>
                 </div>
+                <script>
+                    $(function() {
+                        $("input[name='pin']").on('input', function(e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                </script>
                 <div class="input-box">
                     <input type="password" maxlength="4" placeholder="" id="cpin" name="cpin" required>
                     <span class="floating-label">Confirm 4-Digit Pin</span>
@@ -67,6 +74,13 @@
                             }
                         });
                     </script>
+                    <script>
+                        $(function() {
+                            $("input[name='cpin']").on('input', function(e) {
+                                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                            });
+                        });
+                    </script>
                 </div>
                 <div class="input-box">
                     <input type="email" placeholder="" id="email" name ="email" required>
@@ -76,10 +90,24 @@
                     <input type="password" placeholder="" id="ssn" maxlength="9" name="ssn" required>
                     <span class="floating-label">Social Security Number (Format: *********)</span>
                 </div>
+                <script>
+                    $(function() {
+                        $("input[name='ssn']").on('input', function(e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                </script>
                 <div class="input-box">
                     <input type="text" placeholder="" id="phone" maxlength="10" name ="phone" required>
                     <span class="floating-label">Phone Number (Format: **********)</span>
                 </div>
+                <script>
+                    $(function() {
+                        $("input[name='phone']").on('input', function(e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                </script>
                 <div class="input-box">
                     <input type="text" placeholder="" id="lstate" maxlength="2" name ="lstate" required>
                     <span class="floating-label">License State</span>
