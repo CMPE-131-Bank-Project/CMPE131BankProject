@@ -26,7 +26,10 @@ validator
     ])
     .addField('#cpassword', [
         {
-            rule:"required"  
+            validator: (value, fields) => {
+                return value === fields['#password'].elem.value;
+            },
+            errorMessage: 'Passwords should match'
         }
     ])
     .addField('#pin', [
@@ -36,7 +39,10 @@ validator
     ])
     .addField('#cpin', [
         {
-            rule:"required" 
+            validator: (value, fields) => {
+                return value === fields['#pin'].elem.value;
+            },
+            errorMessage: 'Pins should match'
         }
     ])
     .addField('#email', [
