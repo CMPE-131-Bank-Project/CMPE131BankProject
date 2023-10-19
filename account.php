@@ -4,12 +4,14 @@
         else {
             $logged_in = $_SESSION['logged_in'];
             $username = $_SESSION['username'];
-            print($username);
             if (isset($_POST["acc"])) {
                 if ($_POST["acc"]) {
                     $acc = $_POST["acc"];
                     $check = "Checking Account";
                     $save = "Savings Account";
+                    date_default_timezone_set('America/Los_Angeles');
+                    $date = date("Y/m/d");
+                    $time = date("h:i:sa");
                     $conn = mysqli_connect("localhost", "root", "", "users");
                     if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
@@ -27,7 +29,7 @@
                             $result = mysqli_query($conn, $sql);
                             $count = mysqli_num_rows($result);
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest) VALUES ('$num', '$username', '0', 'Checking Account', '$ir')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time')";
                         $results = mysqli_query($conn, $sql);
                     }
                     else if ($acc == $save) {
@@ -43,7 +45,7 @@
                             $result = mysqli_query($conn, $sql);
                             $count = mysqli_num_rows($result);
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest) VALUES ('$num', '$username', '0', 'Savings Account', '$ir')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
                         $results = mysqli_query($conn, $sql);
                     }
                     mysqli_close($conn);
