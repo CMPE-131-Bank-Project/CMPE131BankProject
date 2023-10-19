@@ -35,33 +35,37 @@
         </h1>
         <table>
             <thead>
-                <tr>
+                <caption>
                     <?php 
-                        if ($logged_in && $result) {
-                            echo "<th>Accounts</th>"; 
+                        if ($logged_in && $result > 0) {
+                            echo "Accounts"; 
                         }
                     ?>      
-                </tr>
+                </caption>
                 <tr>
                     <th>Account Type</th>
                     <th>Account Number</th>
                     <th>Balance</th>
+                    <th>Date Created</th>
+                    <th>Time Created</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    if ($logged_in && $result) {
+                    if ($logged_in && $result > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
                             echo "<td>" . $row["type"] . "</td>";
                             echo "<td>" . $row["accountNum"] . "</td>";
                             echo "<td>" . $row["Balance"] . "</td>";
+                            echo "<td>" . $row["dcreated"] . "</td>";
+                            echo "<td>" . $row["tcreated"] . "</td>";
                             echo "</tr>";
-                            echo "<br>";
                         }
                     }
                 ?>
             </tbody>
+            <caption><button onclick="togglePopup()">Open an Account</button></caption>
         </table>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
@@ -79,6 +83,5 @@
                 </form>
             </div>
         </div>
-        <button onclick="togglePopup()">Open an Account</button>
     </body>
 </html>
