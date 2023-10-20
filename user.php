@@ -22,6 +22,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="userpageCSS.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="userpagescripts.js"></script>
     </head>
     <body>
@@ -109,8 +110,22 @@
                         <br>
                         <label for="recipient">To (Account #):</label>
                         <input type="text" name="recipient"  maxlength="10" id="recipient" required><br>
+                        <script>
+                            $(function() {
+                                $("input[name='recipient']").on('input', function(e) {
+                                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                                });
+                            });
+                        </script>
                         <label for="amount">Amount($):</label required>
                         <input type="text" name="amount" id="amount"> <br><br>
+                        <script>
+                            $(function() {
+                                $("input[name='amount']").on('input', function(e) {
+                                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+                                });
+                            });
+                        </script>
                         <button type="submit" class="btn">Transfer</button>
                 </form>
             </div>
