@@ -108,10 +108,9 @@
                         </select>
                         <br>
                         <label for="recipient">To (Account #):</label>
-                        <input type="text" name="recipient"  maxlength="10" id="recipient" required>
-                        <br>
+                        <input type="text" name="recipient"  maxlength="10" id="recipient" required><br>
                         <label for="amount">Amount($):</label required>
-                        <input type="text" name="amount" id="amount">
+                        <input type="text" name="amount" id="amount"> <br><br>
                         <button type="submit" class="btn">Transfer</button>
                 </form>
             </div>
