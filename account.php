@@ -10,7 +10,7 @@
                     $check = "Checking Account";
                     $save = "Savings Account";
                     date_default_timezone_set('America/Los_Angeles');
-                    $date = date("Y/m/d");
+                    $date = date("m/d/Y");
                     $time = date("h:i:sa");
                     $conn = mysqli_connect("localhost", "root", "", "users");
                     if (!$conn) {
@@ -34,7 +34,7 @@
                     }
                     else if ($acc == $save) {
                         $ir = 0.0057;
-                        $year = (date("Y") - 1004) * pow(10, 6);
+                        $year = (date("Y") - 1017) * pow(10, 6);
                         $num = $year + rand(0, 999999);
                         $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
                         $result = mysqli_query($conn, $sql);
@@ -45,7 +45,7 @@
                             $result = mysqli_query($conn, $sql);
                             $count = mysqli_num_rows($result);
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
                         $results = mysqli_query($conn, $sql);
                     }
                     mysqli_close($conn);
