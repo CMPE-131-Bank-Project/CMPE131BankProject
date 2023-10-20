@@ -96,7 +96,6 @@
                         <h2>Transfer</h2>
                         <label for="account">From:</label>
                         <select name="account" id="account">
-                            <option value=""></option>
                             <?php 
                                 if ($logged_in && $result > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
@@ -109,9 +108,9 @@
                         </select>
                         <br>
                         <label for="recipient">To (Account #):</label>
-                        <input type="text" name="recipient"  maxlenght="10" id="recipient">
+                        <input type="text" name="recipient"  maxlength="10" id="recipient" required>
                         <br>
-                        <label for="amount">Amount($):</label>
+                        <label for="amount">Amount($):</label required>
                         <input type="text" name="amount" id="amount">
                         <button type="submit" class="btn">Transfer</button>
                 </form>
