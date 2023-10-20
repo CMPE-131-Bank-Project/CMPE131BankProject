@@ -1,0 +1,64 @@
+<?php 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $targetDirectory = "uploads/"; // Directory where check images will be stored
+        $targetFile = $targetDirectory . basename($_FILES['checkImage']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+        // Check if the uploaded file is an image
+        $check = getimagesize($_FILES['checkImage']['tmp_name']);
+        if (!$check) {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($targetFile)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+
+        // Check file size (you can adjust this as needed)
+        if ($_FILES['checkImage']['size'] > 5000000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats (you can adjust this as needed)
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            echo "Sorry, only JPG, JPEG, PNG, and GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // If everything is OK, try to upload the file
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($_FILES['checkImage']['tmp_name'], $targetFile)) {
+                // File uploaded successfully; you can now process the check and update the user's balance
+                // Implement your deposit logic here
+
+                echo "Check uploaded and deposited successfully.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    } else {
+        echo "Invalid request method.";
+    }
+
+?>
+
+<html>
+<head>
+    <title>Check Deposit</title>
+</head>
+<body>
+    <h1>Upload Your Check Image</h1>
+    <form action="process_upload.php" method="post" enctype="multipart/form-data">
+        <label for="checkImage">Select Check Image:</label>
+        <input type="file" name="checkImage" id="checkImage" accept="image/*" required>
+        <br>
+        <input type="submit" value="Upload and Deposit">
+    </form>
+</body>
+</html>
+
