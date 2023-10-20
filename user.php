@@ -42,6 +42,8 @@
                         }
                     ?>      
                 </caption>
+                <caption><button onclick="togglePopup()">Open an Account</button></caption>
+                <caption><button onclick="togglePopupTwo()">Transfer</button></caption>
                 <tr>
                     <th>Account Type</th>
                     <th>Account Number</th>
@@ -57,7 +59,7 @@
                             echo "<tr>";
                             echo "<td>" . $row["type"] . "</td>";
                             echo "<td>" . $row["accountNum"] . "</td>";
-                            echo "<td>" . $row["Balance"] . "</td>";
+                            echo "<td>$" . $row["Balance"] . "</td>";
                             echo "<td>" . $row["dcreated"] . "</td>";
                             echo "<td>" . $row["tcreated"] . "</td>";
                             echo "</tr>";
@@ -65,7 +67,6 @@
                     }
                 ?>
             </tbody>
-            <caption><button onclick="togglePopup()">Open an Account</button></caption>
         </table>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
@@ -80,6 +81,39 @@
                         <label for="savings">Savings Account</label> <br>
                         <button type="submit" class="btn">Open</button>
                     </div>
+                </form>
+            </div>
+        </div>
+        <?php 
+            $sql = "SELECT * FROM BankAccounts WHERE username = '$username'";
+            $result = mysqli_query($conn, $sql);
+        ?>
+        <div class="popup" id ="popup-2">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopupTwo()">&times;</div>
+                <form action="transfer.php" method="post">
+                        <h2>Transfer</h2>
+                        <label for="account">From:</label>
+                        <select name="account" id="account">
+                            <option value=""></option>
+                            <?php 
+                                if ($logged_in && $result > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option value=\"" . $row["accountNum"] . "\">";
+                                        echo $row["type"] . " (" . $row["accountNum"] . ")";
+                                        echo "</option>";
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <br>
+                        <label for="recipient">To (Account #):</label>
+                        <input type="text" name="recipient"  maxlenght="10" id="recipient">
+                        <br>
+                        <label for="amount">Amount($):</label>
+                        <input type="text" name="amount" id="amount">
+                        <button type="submit" class="btn">Transfer</button>
                 </form>
             </div>
         </div>
