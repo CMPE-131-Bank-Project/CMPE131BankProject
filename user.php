@@ -42,8 +42,6 @@
                         }
                     ?>      
                 </caption>
-                <caption><button onclick="togglePopup()">Open an Account</button></caption>
-                <caption><button onclick="togglePopupTwo()">Transfer</button></caption>
                 <tr>
                     <th>Account Type</th>
                     <th>Account Number</th>
@@ -68,6 +66,8 @@
                 ?>
             </tbody>
         </table>
+        <button onclick="togglePopup()">Open an Account</button>
+        <button onclick="togglePopupTwo()">Transfer</button>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
             <div class="content">
