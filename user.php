@@ -109,7 +109,7 @@
                         </select>
                         <br>
                         <label for="recipient">To (Account #):</label>
-                        <input type="text" name="recipient"  maxlength="10" id="recipient" required><br>
+                        <input type="text" name="recipient" minlength="10"  maxlength="10" id="recipient" required><br>
                         <script>
                             $(function() {
                                 $("input[name='recipient']").on('input', function(e) {
@@ -117,13 +117,17 @@
                                 });
                             });
                         </script>
-                        <label for="amount">Amount($):</label required>
-                        <input type="text" name="amount" id="amount"> <br><br>
+                        <label for="amount">Amount($):</label>
+                        <input type="text" name="amount" id="amount" required> <br><br>
                         <script>
-                            $(function() {
-                                $("input[name='amount']").on('input', function(e) {
-                                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-                                });
+                            $("#amount").on("keyup", function(){
+                                var valid = /^\d+(\.\d{0,2})?$/.test(this.value),
+                                    val = this.value;
+                                
+                                if(!valid){
+                                    console.log("Invalid input!");
+                                    this.value = val.substring(0, val.length - 1);
+                                }
                             });
                         </script>
                         <button type="submit" class="btn">Transfer</button>
