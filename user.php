@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="userpageCSS.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="userpagescripts.js"></script>
+        <script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
         <h1>
@@ -132,6 +133,91 @@
                         </script>
                         <button type="submit" class="btn">Transfer</button>
                 </form>
+            </div>
+        </div>
+        <div class="popup" id ="popup-3">
+            <div class="overlay"></div>
+            <div class="content">
+                <p class="timertext" style="font-size: 1.5rem;"> 
+                    <span class="secs"></span>
+                    <br>
+                    <button onclick="stay()">Stay Logged In</button>
+                    <button onclick="logout()">Logout</button>
+                </p> 
+                    <script type="text/javascript"> 
+                        var currSeconds = 0; 
+                        var popUpInactive = true;
+
+                        $(document).ready(function() { 
+
+                            /* Increment the idle time 
+                                counter every second */ 
+                            let idleInterval = 
+                                setInterval(timerIncrement, 1000); 
+
+                            /* Zero the idle timer 
+                                on mouse movement */ 
+                                document.addEventListener("wheel", function (e) {
+                                    // get the old value of the translation (there has to be an easier way than this)
+                                    var oldVal = parseInt(document.getElementById("body").style.transform.replace("translateY(","").replace("px)",""));
+
+                                    // to make it work on IE or Chrome
+                                    var variation = parseInt(e.deltaY);
+
+                                    // update the body translation to simulate a scroll
+                                    document.getElementById("body").style.transform = "translateY(" + (oldVal - variation) + "px)";
+
+                                    return false;
+
+                                }, true);
+                                $(this).on("mousemove keypress keyup keypress keydown touchstart click dblclick scroll wheel", function() {
+                                    if(popUpInactive) resetTimer();
+                                })
+                        });
+
+                        function resetTimer() { 
+
+                            /* Hide the timer text */ 
+                            document.querySelector(".timertext") 
+                                .style.display = 'none'; 
+
+                            currSeconds = 0; 
+                        } 
+
+                        function logout() {
+                            window.location.href='Logout.php';
+                        }
+
+                        function stay() {
+                            popUpInactive = true;
+                            resetTimer();
+                            document.getElementById("popup-3").classList.toggle("active");
+                        }
+
+                        function timerIncrement() { 
+                            currSeconds = currSeconds + 1;
+                            left = 600 - currSeconds;
+                            dSeconds = left % 60;
+                            Minutes = Math.trunc(left/60); 
+                            if (dSeconds < 10) dSeconds = "0" + dSeconds;
+
+                            /* Set the timer text to 
+                                the new value */ 
+                            if (currSeconds == 300) {
+                                popUpInactive = false;
+                                document.getElementById("popup-3").classList.toggle("active");
+                            }
+                            if (currSeconds >= 300 && left >= 0) {
+                                document.querySelector(".secs") 
+                                .textContent = "Due to inactivity, you will be logged out in " + Minutes + ":" + dSeconds; 
+
+                                /* Display the timer text */ 
+                                document.querySelector(".timertext") 
+                                    .style.display = 'block'; 
+                            }
+                            if (currSeconds == 600) logout();
+                        } 
+                </script>
             </div>
         </div>
     </body>
