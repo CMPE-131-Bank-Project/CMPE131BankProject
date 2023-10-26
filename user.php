@@ -70,6 +70,9 @@
         </table>
         <button onclick="togglePopup()">Open an Account</button>
         <button onclick="togglePopupTwo()">Transfer</button>
+        <form action="deposit.php" style="display: inline-block;">
+            <button type="Submit">Deposit</button>
+        </form>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
             <div class="content">
