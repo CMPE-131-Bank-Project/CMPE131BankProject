@@ -109,7 +109,7 @@
                                         return false;
 
                                     }, true);
-                                    $(this).on("mousemove keypress keyup keypress keydown touchstart click dblclick scroll wheel", function() {
+                                    $(this).on("mousemove keypress keyup keypress keydown touchstart click dblclick scroll wheel load unload", function() {
                                         if(popUpInactive) resetTimer();
                                     })
                             });
