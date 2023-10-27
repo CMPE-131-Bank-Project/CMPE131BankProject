@@ -23,13 +23,29 @@
         }
 
         if ($_FILES['frontCheck']['error']) {
+            if ($_FILES['frontCheck']['error'] == '4') {
+                echo "<div class='alert alert-danger'>
+                <strong>Error!</strong> At least one file was not uploaded.
+              </div>";
+            }
+            else {
             echo $phpFileUploadErrors[$_FILES['frontCheck']['error']];
+            }
         }
         elseif ($_FILES['backCheck']['error']) {
+            if ($_FILES['backCheck']['error'] == '4') {
+                echo "<div class='alert alert-danger'>
+                <strong>Error!</strong> At least one file was not uploaded.
+              </div>";
+            }
+            else {
             echo $phpFileUploadErrors[$_FILES['backCheck']['error']];
+            }
         }
         elseif ($ext_error) {
-            echo "Error: At least one file is an invalid type";
+            echo "<div class='alert alert-danger'>
+            <strong>Error!</strong> At least one file is an unsupported type. Please upload files of the following type only: (.jepg .jpg .png .gif)
+          </div>";
         }
         else {
             move_uploaded_file($_FILES['frontCheck']['tmp_name'], 'images/'.$_FILES['frontCheck']['name']);
@@ -62,7 +78,9 @@ else {
         $sql = "INSERT INTO deposits (accountNum, username, amount, frontcheck, backcheck) VALUES ('$accountNum', '$username', '$amount', '$frontcheck', '$backcheck')";
         $results = mysqli_query($conn, $sql);
         if ($results) {
-            echo "Success! Your deposit is being processed.";
+            echo "<div class='alert alert-success'>
+            <strong>Success!</strong> Your deposit is being processed.
+          </div>";
         }
         else {
             echo mysqli_error($conn);
@@ -72,11 +90,14 @@ else {
 }
         ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>depositprocess</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <br>
