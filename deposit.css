@@ -40,11 +40,13 @@ input {
     height:40px;
     width:25%;
     background-color:rgb(36, 160, 237);
+    color:white;
 }
 
 #deposit:hover {
     cursor:pointer;
     background-color:rgb(28, 141, 211);
+    color:white;
 }
 
 button {
@@ -55,11 +57,13 @@ button {
     border-radius:5px;
     border-color:azure;
     background-color:rgb(36, 160, 237);
+    color:white;
 }
 
 button:hover {
     cursor: pointer;
     background-color:rgb(28, 141, 211);
+    color:white;
 }
 
 .popup .overlay {
