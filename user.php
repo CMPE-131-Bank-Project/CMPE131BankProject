@@ -37,13 +37,7 @@
         </h1>
         <table>
             <thead>
-                <caption>
-                    <?php 
-                        if ($logged_in && $result > 0) {
-                            echo "Accounts"; 
-                        }
-                    ?>      
-                </caption>
+                <caption>Account(s)</caption>
                 <tr>
                     <th>Account Type</th>
                     <th>Account Number</th>
@@ -54,16 +48,14 @@
             </thead>
             <tbody>
                 <?php 
-                    if ($logged_in && $result > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . $row["type"] . "</td>";
-                            echo "<td>" . $row["accountNum"] . "</td>";
-                            echo "<td>$" . $row["Balance"] . "</td>";
-                            echo "<td>" . $row["dcreated"] . "</td>";
-                            echo "<td>" . $row["tcreated"] . "</td>";
-                            echo "</tr>";
-                        }
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row["type"] . "</td>";
+                        echo "<td>" . $row["accountNum"] . "</td>";
+                        echo "<td>$" . $row["Balance"] . "</td>";
+                        echo "<td>" . $row["dcreated"] . "</td>";
+                        echo "<td>" . $row["tcreated"] . "</td>";
+                        echo "</tr>";
                     }
                 ?>
             </tbody>
