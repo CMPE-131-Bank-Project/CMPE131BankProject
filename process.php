@@ -28,39 +28,38 @@
                 $result = mysqli_query($conn, $sql);
                 $count = mysqli_num_rows($result);
                 if($count>0) {
-                    echo "<script>alert('Registration unsuccessful. That userid is already taken.');window.location.href='Registration.html';</script>";
+                    echo "<script>alert('Registration unsuccessful. That userid is already taken.');window.location.href='Registration.php';</script>";
                 }
                 $sql="SELECT * FROM registrations WHERE email ='$email'";
                 $result = mysqli_query($conn, $sql);
                 $count = mysqli_num_rows($result);
                 if($count>0) {
-                    echo "<script>alert('Registration unsuccessful. That email is already taken.');window.location.href='Registration.html';</script>";
+                    echo "<script>alert('Registration unsuccessful. That email is already taken.');window.location.href='Registration.php';</script>";
                 }
                 $sql="SELECT * FROM registrations WHERE phone ='$phone'";
                 $result = mysqli_query($conn, $sql);
                 $count = mysqli_num_rows($result);
                 if($count>0) {
-                    echo "<script>alert('Registration unsuccessful. That phone number is already taken.');window.location.href='Registration.html';</script>";
+                    echo "<script>alert('Registration unsuccessful. That phone number is already taken.');window.location.href='Registration.php';</script>";
                 }
                 $sql="SELECT * FROM registrations WHERE ssn='$ssn'";
                 $result = mysqli_query($conn, $sql);
                 $count = mysqli_num_rows($result);
                 if($count>0) {
-                    echo "<script>alert('Registration unsuccessful.');window.location.href='Registration.html';</script>";
+                    echo "<script>alert('Registration unsuccessful.');window.location.href='Registration.php';</script>";
                 }
                 $sql = "INSERT INTO registrations (username, password, fname, lname, email, address, address2, phone, ssn, state, lstate, license, city, zip, pin) VALUES ('$username', '$password', '$first', '$last', '$email', '$address', '$address2', '$phone', '$ssn', '$state', '$lstate', '$license', '$city', '$zip', '$pin')";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
-                    echo "<script>alert('Registration Successful');window.location.href='Login.html';</script>";
+                    echo "<script>alert('Registration Successful');window.location.href='Login.php';</script>";
                 }
                 else {
                     echo mysqli_error($conn);
                 }
                 mysqli_close($conn);
             }
-            else {
-                header("Location: Login.html");
-            }
+            else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
+            else header("Location: Login.php");
         ?>
     </body>
 </html>
