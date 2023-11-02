@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.html");
+    if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.php");
     else {
         if (isset($_POST['account']) && isset($_POST['recipient']) && isset($_POST['amount'])) {
             if ($_POST['account'] && $_POST['recipient'] && $_POST['amount']) {
