@@ -2,7 +2,9 @@
     <head><title>Authentication</title></head>
     <body>
         <?php
+            session_start();
             if (isset($_POST["username"]) && isset($_POST["password"])) {
+                $_SESSION['Last_Location'] = "authentication.php";
                 $username = $_POST["username"];
                 $password = $_POST["password"];
                 // create connection
@@ -32,6 +34,11 @@
                 }
                 mysqli_close($conn); // close connection
             } 
+            else if ($_SESSION['TFA_Token'] == TRUE && $_SESSION['Last_Location'] == "authentication.php") {
+                $_SESSION['logged_in'] = TRUE;
+                $_SESSION['TFA_Token'] = FALSE;
+                header("Location: user.php");
+            }
             else {
                 header("Location: Login.php");
             }
