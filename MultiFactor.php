@@ -37,7 +37,7 @@
                     <p>Didn't receive a code? <a href="GenerateCode.php">Send it again.</a></p>
                 </div>
                 <div class="register-link">
-                    <p><a href="Logout.php">Back to Login</a></p>
+                    <p><a href="back.php">Back</a></p>
                 </div>
             </form>
         </div>
