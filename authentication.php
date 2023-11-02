@@ -1,57 +1,40 @@
-<?php 
-        session_start();
-        if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
-        else {
-            $username = $_SESSION['username'];
-            if (isset($_POST["acc"])) {
-                if ($_POST["acc"]) {
-                    $acc = $_POST["acc"];
-                    $check = "Checking Account";
-                    $save = "Savings Account";
-                    date_default_timezone_set('America/Los_Angeles');
-                    $date = date("m/d/Y");
-                    $time = date("h:i:sa");
-                    $conn = mysqli_connect("localhost", "root", "", "users");
-                    if (!$conn) {
-                        die("Connection failed: " . mysqli_connect_error());
-                    }
-                    if ($acc == $check) {
-                        $ir = 0.0005;
-                        $year = (date("Y") - 1004) * pow(10, 6);
-                        $num = $year + rand(0, 999999);
-                        $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
-                        $result = mysqli_query($conn, $sql);
-                        $count = mysqli_num_rows($result);
-                        while ($count > 0) {
-                            $num = $year + rand(0, 999999);
-                            $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
-                            $result = mysqli_query($conn, $sql);
-                            $count = mysqli_num_rows($result);
-                        }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time')";
-                        $results = mysqli_query($conn, $sql);
-                    }
-                    else if ($acc == $save) {
-                        $ir = 0.0057;
-                        $year = (date("Y") - 1017) * pow(10, 6);
-                        $num = $year + rand(0, 999999);
-                        $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
-                        $result = mysqli_query($conn, $sql);
-                        $count = mysqli_num_rows($result);
-                        while ($count > 0) {
-                            $num = $year + rand(0, 999999);
-                            $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
-                            $result = mysqli_query($conn, $sql);
-                            $count = mysqli_num_rows($result);
-                        }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
-                        $results = mysqli_query($conn, $sql);
-                    }
-                    mysqli_close($conn);
-                    header("Location: user.php");
+<html>
+    <head><title>Authentication</title></head>
+    <body>
+        <?php
+            if (isset($_POST["username"]) && isset($_POST["password"])) {
+                $username = $_POST["username"];
+                $password = $_POST["password"];
+                // create connection
+                $conn = mysqli_connect("localhost", "root", "", "users");
+                // check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
                 }
-                else header("Location: user.php");
+                // select user
+                $sql = "SELECT password FROM registrations WHERE username = '$username'";
+                $results = mysqli_query($conn, $sql);
+                if ($results) {
+                    session_start();
+                    $row = mysqli_fetch_assoc($results);
+                    if ($row["password"] === $password) {
+                        $_SESSION['logged_in'] = FALSE;
+                        $_SESSION['username'] = $username;
+                        $_SESSION['TFA'] = TRUE;
+                        echo "<script>window.location.href='GenerateCode.php';</script>";
+                    } 
+                    else {
+                        echo "<script>alert('Login Failed');window.location.href='Logout.php';</script>";
+                    }
+                } 
+                else {
+                    echo mysqli_error($conn);
+                }
+                mysqli_close($conn); // close connection
+            } 
+            else {
+                header("Location: Login.php");
             }
-            else header("Location: user.php");
-        } 
-?>
+        ?>
+    </body>
+</html>
