@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.php");
-    else if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
+    else if ($_SESSION['TFA'] == TRUE) header("Location: MultiFactor.php");
     else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
     else {
         $logged_in = $_SESSION['logged_in'];
