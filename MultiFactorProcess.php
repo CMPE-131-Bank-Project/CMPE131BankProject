@@ -13,9 +13,10 @@
             session_start();
             $row = mysqli_fetch_assoc($results);
             if ($row["TFAcode"] == $code) {
-                $_SESSION['logged_in'] = TRUE;
                 $_SESSION['TFA'] = FALSE;
-                echo "<script>window.location.href='user.php';</script>";
+                $_SESSION['TFA_Token'] = TRUE;
+                $location = $_SESSION['Last_Location'];
+                header("Location: $location");
             } 
             else {
                 echo "<script>alert('The code that you entered was invalid.');window.location.href='MultiFactor.php';</script>";
