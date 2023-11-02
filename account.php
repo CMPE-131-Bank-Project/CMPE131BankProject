@@ -1,8 +1,7 @@
 <?php 
         session_start();
-        if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.html");
+        if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
         else {
-            $logged_in = $_SESSION['logged_in'];
             $username = $_SESSION['username'];
             if (isset($_POST["acc"])) {
                 if ($_POST["acc"]) {
