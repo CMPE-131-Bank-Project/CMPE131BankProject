@@ -7,13 +7,10 @@
                 $_SESSION['Last_Location'] = "authentication.php";
                 $username = $_POST["username"];
                 $password = $_POST["password"];
-                // create connection
                 $conn = mysqli_connect("localhost", "root", "", "users");
-                // check connection
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 }
-                // select user
                 $sql = "SELECT password FROM registrations WHERE username = '$username'";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
@@ -32,7 +29,7 @@
                 else {
                     echo mysqli_error($conn);
                 }
-                mysqli_close($conn); // close connection
+                mysqli_close($conn); 
             } 
             else if ($_SESSION['TFA_Token'] == TRUE && $_SESSION['Last_Location'] == "authentication.php") {
                 $_SESSION['logged_in'] = TRUE;
