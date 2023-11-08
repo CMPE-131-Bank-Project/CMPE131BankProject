@@ -10,10 +10,10 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT * FROM registrations WHERE username = '$username'";
+        $sql = "SELECT fname FROM registrations WHERE username = '$username'";
         $result = mysqli_query($conn, $sql);
         $fname = mysqli_fetch_assoc($result);
-        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated DESC, tcreated DESC";
+        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
         $result = mysqli_query($conn, $sql);
     } 
 ?>
@@ -39,6 +39,15 @@
             <div class="lbtn">
                 <a href="deposit.php" class="log logbutton" name="deposit">Deposit</a>
             </div>
+            <div class="lbtn">
+                <a href="card_selection.php" class="log logbutton" name="ATM">ATM</a>
+            </div>
+            <div class="lbtn">
+                <a onclick="togglePopupTwo()" style="cursor: pointer;" class="log logbutton" name="Transfer">Transfer</a>
+            </div>
+            <div class="lbtn">
+                <a onclick="togglePopup()" style="cursor: pointer;" class="log logbutton" name="OpenAccount">Open an Account</a>
+            </div>
         </h1>
         <table>
             <caption>Account(s)</caption>
@@ -47,8 +56,6 @@
                     <th>Account Type</th>
                     <th>Account Number</th>
                     <th>Balance</th>
-                    <th>Date Created</th>
-                    <th>Time Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,15 +66,11 @@
                         echo "<td>" . $row["type"] . "</td>";
                         echo "<td><form action=\"/account_info.php\" method=\"post\"><button name=\"account\" value=\"$acc\" type=\"submit\">" . $acc . "</button></form></td>";
                         echo "<td>$" . $row["Balance"] . "</td>";
-                        echo "<td>" . $row["dcreated"] . "</td>";
-                        echo "<td>" . $row["tcreated"] . "</td>";
                         echo "</tr>";
                     }
                 ?>
             </tbody>
         </table>
-        <button onclick="togglePopup()">Open an Account</button>
-        <button onclick="togglePopupTwo()">Transfer</button>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
             <div class="content">
@@ -85,7 +88,7 @@
             </div>
         </div>
         <?php 
-            $sql = "SELECT * FROM BankAccounts WHERE username = '$username'";
+            $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
             $result = mysqli_query($conn, $sql);
         ?>
         <div class="popup" id ="popup-2">
@@ -108,7 +111,7 @@
                         </select>
                         <br>
                         <label for="recipient">To (Account #):</label>
-                        <input type="text" name="recipient" minlength="10"  maxlength="10" id="recipient" required><br>
+                        <input type="text" name="recipient" minlength="10"  maxlength="16" id="recipient" required><br>
                         <script>
                             $(function() {
                                 $("input[name='recipient']").on('input', function(e) {
