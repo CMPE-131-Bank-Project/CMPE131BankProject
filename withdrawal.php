@@ -51,6 +51,7 @@
             }
         }
         else echo "<script>alert('Incorrect pin.');window.location.href='card_selection.php';</script>";
+        mysqli_close($conn);
     }
     else header("Location: card_selection.php");
 ?>
