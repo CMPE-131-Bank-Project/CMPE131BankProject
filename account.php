@@ -17,32 +17,44 @@
                     }
                     if ($acc == $check) {
                         $ir = 0.0005;
-                        $year = (date("Y") - 1004) * pow(10, 6);
-                        $num = $year + rand(0, 999999);
+                        $year = (date("Y") - 1004) * pow(10, 12);
+                        $num = $year + rand(0, 999999999999);
                         $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
                         $result = mysqli_query($conn, $sql);
-                        $count = mysqli_num_rows($result);
-                        while ($count > 0) {
-                            $num = $year + rand(0, 999999);
+                        $duplicate = mysqli_num_rows($result);
+                        $count = 0;
+                        while ($duplicate > 0) {
+                            if ($count == 1000) {
+                                $year = $year + 1;
+                                $count = 0;
+                            }
+                            $num = $year + rand(0, 999999999999);
                             $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
                             $result = mysqli_query($conn, $sql);
-                            $count = mysqli_num_rows($result);
+                            $duplicate = mysqli_num_rows($result);
+                            $count = $count + 1;
                         }
                         $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time')";
                         $results = mysqli_query($conn, $sql);
                     }
                     else if ($acc == $save) {
                         $ir = 0.0057;
-                        $year = (date("Y") - 1017) * pow(10, 6);
-                        $num = $year + rand(0, 999999);
+                        $year = (date("Y") - 1017) * pow(10, 12);
+                        $num = $year + rand(0, 999999999999);
                         $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
                         $result = mysqli_query($conn, $sql);
-                        $count = mysqli_num_rows($result);
-                        while ($count > 0) {
-                            $num = $year + rand(0, 999999);
+                        $duplicate = mysqli_num_rows($result);
+                        $count = 0;
+                        while ($duplicate > 0) {
+                            if ($count == 1000) {
+                                $year = $year + 1;
+                                $count = 0;
+                            }
+                            $num = $year + rand(0, 999999999999);
                             $sql="SELECT * FROM BankAccounts WHERE accountNum='$num'";
                             $result = mysqli_query($conn, $sql);
-                            $count = mysqli_num_rows($result);
+                            $duplicate = mysqli_num_rows($result);
+                            $count = $count + 1;
                         }
                         $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
                         $results = mysqli_query($conn, $sql);
