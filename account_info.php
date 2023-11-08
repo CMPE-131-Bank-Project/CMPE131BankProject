@@ -36,7 +36,10 @@
                 <a href="deposit.php" class="log logbutton" name="deposit">Deposit</a>
             </div>
             <div class="lbtn">
-                <a href="user.php" class="log logbutton" name="user_page">Accounts</a>
+                <a href="card_selection.php" class="log logbutton" name="ATM">ATM</a>
+            </div>
+            <div class="lbtn">
+                <a href="user.php" class="log logbutton" name="user_page">Home</a>
             </div>
         </h1>
         <h2><?php print $info["type"] . " (" . $info["accountNum"] . ")"; ?></h2>
@@ -48,10 +51,12 @@
             <caption>Transaction(s)</caption>
             <thead>
                 <tr>
+                    <th>Transaction Number</th>
                     <th>Transaction Date</th>
                     <th>Transaction Time</th>
                     <th>Description</th>
                     <th>Amount($)</th>
+                    <th>Old Balance($)</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -61,6 +66,7 @@
                     $result = mysqli_query($conn, $sql);
                     while ($transactions = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
+                        echo "<td>" . $transactions["transaction_num"] . "</td>";
                         echo "<td>" . $transactions["date_occured"] . "</td>";
                         echo "<td>" . $transactions["time_occured"] . "</td>";
                         if ($transactions["transaction_type"] == "Transfer") {
@@ -72,7 +78,11 @@
                         else if ($transactions["transaction_type"] == "Deposit") {
                             echo "<td>Online Deposit</td>";
                         }
+                        else if ($transactions["transaction_type"] == "Withdrawal") {
+                            echo "<td>ATM Withdrawal</td>";
+                        }
                         echo "<td>" . $transactions["amount"] . "</td>";
+                        echo "<td>" . $transactions["old_balance"] . "</td>";
                         if ($transactions["transaction_status"] == "Processed") {
                             echo "<td style=\"color:green\">" . $transactions["transaction_status"] . "</td>";
                         }
@@ -84,5 +94,70 @@
                 ?>
             </tbody>
         </table>
+        <div class="popup" id ="popup-3">
+            <div class="overlay"></div>
+            <div class="content">
+                <p class="timertext" style="font-size: 1.5rem;"> 
+                    <span class="secs"></span>
+                    <br>
+                    <button onclick="stay()">Stay Logged In</button>
+                    <button onclick="logout()">Logout</button>
+                </p> 
+                    <script type="text/javascript"> 
+                        var currSeconds = 0; 
+                        var popUpInactive = true;
+
+                        $(document).ready(function() { 
+                            let idleInterval = 
+                                setInterval(timerIncrement, 1000); 
+                                document.addEventListener("wheel", function (e) {
+                                    var oldVal = parseInt(document.getElementById("body").style.transform.replace("translateY(","").replace("px)",""));
+                                    var variation = parseInt(e.deltaY);
+                                    document.getElementById("body").style.transform = "translateY(" + (oldVal - variation) + "px)";
+                                    return false;
+                                }, true);
+                                $(this).on("mousemove keypress keyup keypress keydown touchstart click dblclick scroll wheel load unload", function() {
+                                    if(popUpInactive) resetTimer();
+                                })
+                        });
+
+                        function resetTimer() { 
+                            document.querySelector(".timertext") 
+                                .style.display = 'none'; 
+
+                            currSeconds = 0; 
+                        } 
+
+                        function logout() {
+                            window.location.href='Logout.php';
+                        }
+
+                        function stay() {
+                            popUpInactive = true;
+                            resetTimer();
+                            document.getElementById("popup-3").classList.toggle("active");
+                        }
+
+                        function timerIncrement() { 
+                            currSeconds = currSeconds + 1;
+                            left = 600 - currSeconds;
+                            dSeconds = left % 60;
+                            Minutes = Math.trunc(left/60); 
+                            if (dSeconds < 10) dSeconds = "0" + dSeconds;
+                            if (currSeconds == 300) {
+                                popUpInactive = false;
+                                document.getElementById("popup-3").classList.toggle("active");
+                            }
+                            if (currSeconds >= 300 && left >= 0) {
+                                document.querySelector(".secs") 
+                                .textContent = "Due to inactivity, you will be logged out in " + Minutes + ":" + dSeconds; 
+                                document.querySelector(".timertext") 
+                                    .style.display = 'block'; 
+                            }
+                            if (currSeconds == 600) logout();
+                        } 
+                </script>
+            </div>
+        </div>
     </body>
 </html>
