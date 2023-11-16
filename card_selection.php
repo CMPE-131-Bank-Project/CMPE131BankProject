@@ -14,7 +14,7 @@
         $name = mysqli_fetch_assoc($result);
         $fname = $name['fname'];
         $lname = $name['lname'];
-        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
+        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, mil_time ASC";
         $result = mysqli_query($conn, $sql);
     } 
 ?>
@@ -33,7 +33,8 @@
     </head>
 
     <body>
-        <h1>Choose a Card to Withdrawal Money From:
+        <h1>
+            Choose a Card to Withdrawal Money From:
             <div class="lbtn">
                 <a href="Logout.php" class="log logbutton" name="logout">Logout</a>
             </div>
@@ -82,7 +83,7 @@
                                     else echo "style=\"background-image: url(22.jpg);\"";
                                     echo "value=\"" . $accounts["accountNum"] . "\">
                                         <h6>
-                                            For customer service, call our support number.
+                                            For customer service, please call our support number.
                                         </h6>
                                         <span class=\"strip\"></span>
                     
@@ -104,7 +105,7 @@
                             $num = $num + 1;
                     }
                     $num = 1;
-                    $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
+                    $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, mil_time ASC";
                     $result = mysqli_query($conn, $sql);
                     while ($accounts = mysqli_fetch_assoc($result)) {
                         echo "<div class=\"popup\" id =\"popup-". $num . "\">
@@ -135,6 +136,7 @@
                         $num = $num + 1;
                     }
             echo "</form>";
+            echo "<img id=\"wallet\" src=\"wallet.webp\">";
             echo "<div class=\"popup\" id =\"popup-" . $num . "\">
                 <div class=\"overlay\"></div>
                 <div class=\"content\">
