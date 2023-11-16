@@ -13,7 +13,7 @@
         $sql = "SELECT fname FROM registrations WHERE username = '$username'";
         $result = mysqli_query($conn, $sql);
         $fname = mysqli_fetch_assoc($result);
-        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
+        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, mil_time ASC";
         $result = mysqli_query($conn, $sql);
     } 
 ?>
@@ -31,7 +31,7 @@
     <body>
         <h1>
             <?php
-                print "Welcome, " . $fname['fname'] . "!";
+                print "<span style=\"font-weight: bold;\">Welcome, " . $fname['fname'] . "!</span>";
             ?>
             <div class="lbtn">
                 <a href="Logout.php" class="log logbutton" name="logout">Logout</a>
@@ -49,28 +49,21 @@
                 <a onclick="togglePopup()" style="cursor: pointer;" class="log logbutton" name="OpenAccount">Open an Account</a>
             </div>
         </h1>
-        <table>
-            <caption>Account(s)</caption>
-            <thead>
-                <tr>
-                    <th>Account Type</th>
-                    <th>Account Number</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody>
+        <form action="account_info.php" method="post">
+            <div class="account">
+                <br>
+                <p class="name"><span>Account(s)</span></p><br>
                 <?php 
                     while ($row = mysqli_fetch_assoc($result)) {
                         $acc = $row["accountNum"];
-                        echo "<tr>";
-                        echo "<td>" . $row["type"] . "</td>";
-                        echo "<td><form action=\"/account_info.php\" method=\"post\"><button name=\"account\" value=\"$acc\" type=\"submit\">" . $acc . "</button></form></td>";
-                        echo "<td>$" . $row["Balance"] . "</td>";
-                        echo "</tr>";
+                        echo "<button name=\"account\" value=\"$acc\" type=\"submit\">";
+                        echo "<span class=\"bal\">$" . $row["Balance"] . "</span>";
+                        echo "<span class=\"num\">" . $row["type"] . "<br> (#" . $acc . ")";
+                        echo "</button><br>";
                     }
                 ?>
-            </tbody>
-        </table>
+            </div>
+        </form>
         <div class="popup" id ="popup-1">
             <div class="overlay"></div>
             <div class="content">
@@ -88,7 +81,7 @@
             </div>
         </div>
         <?php 
-            $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, tcreated ASC";
+            $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, mil_time ASC";
             $result = mysqli_query($conn, $sql);
         ?>
         <div class="popup" id ="popup-2">
