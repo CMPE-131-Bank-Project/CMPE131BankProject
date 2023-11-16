@@ -57,13 +57,14 @@ section {
   transform-style: preserve-3d;
 }
 .container:hover {
-  transform: translate(-50%, -50%) rotateY(180deg);
+  transform: translate(-50%, -50%) rotateY(180deg) rotateX(0);
 }
 .container .card {
   height: 100%;
   padding: 25px;
   width: 100%;
   border-radius: 25px;
+  background: #fff;
   background-size: cover;
   background-position: center;
   box-shadow: 0 25px 25px rgb(30, 31, 30);
@@ -126,7 +127,7 @@ h5.name {
 }
 
 .back-face {
-  transform: translate(-50%, -50%) rotateY(180deg);
+  transform: translate(-50%, -50%) rotateY(180deg) rotateX(0);
   border: none;
   padding: 15px 25px 25px 250px;
 }
