@@ -1,3 +1,20 @@
+<?php
+    session_start();
+    if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+    else if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
+    else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+    else {
+        $logged_in = $_SESSION['logged_in'];
+        $username = $_SESSION['username'];
+        $conn = mysqli_connect("localhost", "root", "", "users");
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM BankAccounts WHERE username = '$username' ORDER BY dcreated ASC, mil_time ASC";
+        $result = mysqli_query($conn, $sql);
+    } 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,31 +25,12 @@
         <link rel="stylesheet" href="deposit.css" />
     </head>
     <body>
-        <?php
-        session_start();
-        if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
-        else if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
-        else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
-        else {
-            $logged_in = $_SESSION['logged_in'];
-            $username = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "root", "", "users");
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-            $sql = "SELECT * FROM registrations WHERE username = '$username'";
-            $result = mysqli_query($conn, $sql);
-            $fname = mysqli_fetch_assoc($result);
-            $sql = "SELECT * FROM BankAccounts WHERE username = '$username'";
-            $result = mysqli_query($conn, $sql);
-        } 
-    ?>
         <div id="form-container">   
         <div class="container">
         <h1>Online Check Deposit</h1> <br> 
         <form action="depositprocess.php" method="POST" enctype="multipart/form-data" style="display: inline-block;">
             <label for="account">To:</label>
-                <select name="account" id="account">
+                <select name="account" id="account" required>
                     <?php 
                         if ($logged_in && $result > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
