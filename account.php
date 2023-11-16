@@ -11,6 +11,7 @@
                     date_default_timezone_set('America/Los_Angeles');
                     $date = date("m/d/Y");
                     $time = date("h:i:sa");
+                    $mtime = date("H:i:s");
                     $conn = mysqli_connect("localhost", "root", "", "users");
                     if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
@@ -34,7 +35,7 @@
                             $duplicate = mysqli_num_rows($result);
                             $count = $count + 1;
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time', '$mtime')";
                         $results = mysqli_query($conn, $sql);
                     }
                     else if ($acc == $save) {
@@ -56,7 +57,7 @@
                             $duplicate = mysqli_num_rows($result);
                             $count = $count + 1;
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time', '$mtime')";
                         $results = mysqli_query($conn, $sql);
                     }
                     mysqli_close($conn);
