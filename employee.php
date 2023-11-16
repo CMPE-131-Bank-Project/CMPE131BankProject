@@ -36,5 +36,29 @@
                     echo "<caption>Total Bank Accounts (" . $num . ")</caption>";
                 ?>
         </table>
+        <table>
+            <thead>
+                <th>Front of Check</th>
+                <th>Back of Check</th>
+                <th>Amount</th>
+                <th>Approve/Deny</th>
+            </thead>
+            <tbody>
+                <?php
+                    $sql = "SELECT * FROM deposits ORDER BY date ASC, time ASC";
+                    $result = mysqli_query($conn, $sql);
+                    $num = 0;
+                    while ($deposits = mysqli_fetch_assoc($result)) {
+                        echo "<form action=\"deposit_final_process.php\" method=\"post\"><input type=\"hidden\" name=\"transaction_num\" value=\"" . $deposits["transaction_num"] . "\"><input type=\"hidden\" name=\"account_num\" value=\"" . $deposits["accountNum"] . "\">";
+                        echo "<tr><td><img src=\"" . $deposits["frontcheck"] . "\"></td>";
+                        echo "<td><img src=\"" . $deposits["backcheck"] . "\"></td>";
+                        echo "<td><input type=\"hidden\" name=\"amount\" value=\"" . $deposits["amount"] . "\">$" . $deposits["amount"] . "</td>";
+                        echo "<td><button name=\"decision\" type=\"submit\" value=\"accept\">Accept</button><button name=\"decision\" type=\"submit\" value=\"deny\">Deny</button></tr></form>";
+                        $num++;
+                    }
+                    echo "</tbody>";
+                    echo "<caption>Pending Online Deposits (" . $num . ")</caption>";
+                ?>
+        </table>
     </body>
 </html>
