@@ -51,7 +51,8 @@
                 $sql = "INSERT INTO registrations (username, password, fname, lname, email, address, address2, phone, ssn, state, lstate, license, city, zip, pin) VALUES ('$username', '$password', '$first', '$last', '$email', '$address', '$address2', '$phone', '$ssn', '$state', '$lstate', '$license', '$city', '$zip', '$pin')";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
-                    mkdir("images/deposits/" . $username . "/", 0777);
+                    mkdir("images/" . $username . "/", 0777);
+                    mkdir("images/" . $username . "/deposits" . "/", 0777);
                     echo "<script>alert('Registration Successful');window.location.href='Login.php';</script>";
                 }
                 else {
