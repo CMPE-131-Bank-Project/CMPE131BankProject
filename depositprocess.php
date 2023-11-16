@@ -59,12 +59,12 @@
             $file_temp_location =  $_FILES['frontCheck']['tmp_name'];
             $file_name_original = $file_name;
             $num = 1;
-            while (file_exists("images/deposits/" . $_SESSION['username'] . "/" . $file_name . "." . $extension)) {
+            while (file_exists("images/" . $_SESSION['username'] . "/" . "deposits/" . $file_name . "." . $extension)) {
                 $file_name = (string) $file_name_original . " (" . $num . ")";
                 $file_name_complete = $file_name . "." . $extension;
                 $num++;
             }
-            $file_target_location_front = "images/deposits/" . $_SESSION['username'] . "/" . $file_name_complete;
+            $file_target_location_front = "images/" . $_SESSION['username'] . "/" . "deposits/" . $file_name_complete;
             move_uploaded_file($file_temp_location, $file_target_location_front);
             $file_name_complete =  $_FILES['backCheck']['name'];
             $extension = pathinfo($file_name_complete, PATHINFO_EXTENSION);
@@ -72,12 +72,12 @@
             $file_temp_location =  $_FILES['backCheck']['tmp_name'];
             $file_name_original = $file_name;
             $num = 1;
-            while (file_exists("images/deposits/" . $_SESSION['username'] . "/" . $file_name . "." . $extension)) {
+            while (file_exists("images/" . $_SESSION['username'] . "/" . "deposits/" . $file_name . "." . $extension)) {
                 $file_name = (string) $file_name_original . " (" . $num . ")";
                 $file_name_complete = $file_name . "." . $extension;
                 $num++;
             }
-            $file_target_location_back = "images/deposits/" . $_SESSION['username'] . "/" . $file_name_complete;
+            $file_target_location_back = "images/" . $_SESSION['username'] . "/" . "deposits/" . $file_name_complete;
             move_uploaded_file($file_temp_location, $file_target_location_back);
         }
         if (!$ext_error) {
@@ -121,7 +121,7 @@
                 $result = mysqli_query($conn, $sql);
                 $frontcheck = $file_target_location_front;
                 $backcheck = $file_target_location_back;
-                $sql = "INSERT INTO deposits (transaction_num, accountNum, username, amount, frontcheck, backcheck) VALUES ('$num', '$accountNum', '$username', '$amount', '$frontcheck', '$backcheck')";
+                $sql = "INSERT INTO deposits (transaction_num, accountNum, username, amount, frontcheck, backcheck, date, time) VALUES ('$num', '$accountNum', '$username', '$amount', '$frontcheck', '$backcheck', '$date', '$mtime')";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
                     echo "<div class='alert alert-success'>
