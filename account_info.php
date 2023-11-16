@@ -45,55 +45,31 @@
         <h2><?php print $info["type"] . " (" . $info["accountNum"] . ")"; ?></h2>
         <p id="balance"><?php print "Balance: $" . $info["Balance"];?></p>
         <p id="time_created"><?php print "Date Created: " . $info["dcreated"] . " | Time Created: " . $info["tcreated"];?></p>
-        <br> <br>
-
-        <table class="center">
-            <caption>Transaction(s)</caption>
-            <thead>
-                <tr>
-                    <th>Transaction Number</th>
-                    <th>Transaction Date</th>
-                    <th>Transaction Time</th>
-                    <th>Description</th>
-                    <th>Amount($)</th>
-                    <th>Old Balance($)</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    $sql = "SELECT * FROM Transactions WHERE accountNum = '$account' ORDER BY date_occured DESC, time_occured DESC";
-                    $result = mysqli_query($conn, $sql);
-                    while ($transactions = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . $transactions["transaction_num"] . "</td>";
-                        echo "<td>" . $transactions["date_occured"] . "</td>";
-                        echo "<td>" . $transactions["time_occured"] . "</td>";
-                        if ($transactions["transaction_type"] == "Transfer") {
-                            echo "<td>Transfer to Account Number: " . $transactions["location"] . "</td>";
-                        }
-                        else if ($transactions["transaction_type"] == "Transferee") {
-                            echo "<td>Received Transfer from Account Number: " . $transactions["location"] . "</td>";
-                        }
-                        else if ($transactions["transaction_type"] == "Deposit") {
-                            echo "<td>Online Deposit</td>";
-                        }
-                        else if ($transactions["transaction_type"] == "Withdrawal") {
-                            echo "<td>ATM Withdrawal</td>";
-                        }
-                        echo "<td>" . $transactions["amount"] . "</td>";
-                        echo "<td>" . $transactions["old_balance"] . "</td>";
-                        if ($transactions["transaction_status"] == "Processed") {
-                            echo "<td style=\"color:green\">" . $transactions["transaction_status"] . "</td>";
-                        }
-                        else {
-                            echo "<td style=\"color:red\">" . $transactions["transaction_status"] . "</td>";
-                        }
-                        echo "</tr>";
+        <div class="account">
+            <p class="name">Transaction(s)</p><br>
+            <?php
+                $sql = "SELECT * FROM Transactions WHERE accountNum = '$account' ORDER BY date_occured DESC, mil_time DESC";
+                $result = mysqli_query($conn, $sql);
+                while ($transactions = mysqli_fetch_assoc($result)) {
+                    $amount = strval($transactions["amount"]);
+                    substr_replace($amount , "$" , 1 , 0 );
+                    echo "<a class=\"acc\">";
+                    echo "<span class=\"bal\">" . "$" .$amount . "</span>";
+                    echo "<span class=\"description\">" . $transactions["Description"] . "</span>";
+                    if ($transactions["transaction_status"] == "Processed") {
+                        echo "<span class=\"status\" style=\"color:green\">" . $transactions["transaction_status"] . "</span>";
                     }
-                ?>
-            </tbody>
-        </table>
+                    else {
+                        echo "<span class=\"status\" style=\"color:red\">" . $transactions["transaction_status"] . "</span>";
+                    }
+                    echo "<span class=\"date\">" . "Date: " . $transactions["date_occured"] . " | Time: " . $transactions["time_occured"] . "</span>";
+                    echo "<span class=\"obal\">" . "$" . $transactions["old_balance"] . "</span>";
+                    echo "<span class=\"tnum\">" . "Transaction #: " . $transactions["transaction_num"] . "</span>";
+                    echo "</a><br>";
+                }
+            ?>
+            <br>
+        </div>
         <div class="popup" id ="popup-3">
             <div class="overlay"></div>
             <div class="content">
