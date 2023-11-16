@@ -46,12 +46,15 @@
                     $nbal = $bal['Balance'];
                     $sql = "UPDATE BankAccounts SET Balance = '$nbal' WHERE accountNum = '$recipient'";
                     $result = mysqli_query($conn, $sql);
+                    $description_sender = "Transfer to Account Number: " . $account;
+                    $description_recipient = "Transfer from Account Number: " . $recipient;
                     date_default_timezone_set('America/Los_Angeles');
                     $date = date("m/d/Y");
                     $time = date("h:i:sa");
+                    $mtime = date("H:i:s");
                     $year = (date("Y") - 1001) * pow(10, 8);
-                    $num = $year + rand(0, 99999999);
-                    $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+                    $num_sender = $year + rand(0, 99999999);
+                    $sql="SELECT * FROM Transactions WHERE transaction_num='$num_sender'";
                     $result = mysqli_query($conn, $sql);
                     $duplicate = mysqli_num_rows($result);
                     $count = 0;
@@ -60,16 +63,14 @@
                             $year = $year + 1;
                             $count = 0;
                         }
-                        $num = $year + rand(0, 99999999);
-                        $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+                        $num_sender = $year + rand(0, 99999999);
+                        $sql="SELECT * FROM Transactions WHERE transaction_num='$num_sender'";
                         $result = mysqli_query($conn, $sql);
                         $duplicate = mysqli_num_rows($result);
                         $count = $count + 1;
                     }
-                    $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance) VALUES ('$num', '$account', '$date', '$time', 'Transfer', 'Processed', '-$amount', '$recipient', '$old_sender')";
-                    $result = mysqli_query($conn, $sql);
-                    $num = $year + rand(0, 99999999);
-                    $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+                    $num_recipient = $year + rand(0, 99999999);
+                    $sql="SELECT * FROM Transactions WHERE transaction_num='$num_recipient'";
                     $result = mysqli_query($conn, $sql);
                     $duplicate = mysqli_num_rows($result);
                     $count = 0;
@@ -78,13 +79,15 @@
                             $year = $year + 1;
                             $count = 0;
                         }
-                        $num = $year + rand(0, 99999999);
-                        $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+                        $num_recipient = $year + rand(0, 99999999);
+                        $sql="SELECT * FROM Transactions WHERE transaction_num='$num_recipient'";
                         $result = mysqli_query($conn, $sql);
                         $duplicate = mysqli_num_rows($result);
                         $count = $count + 1;
                     }
-                    $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance) VALUES ('$num', '$recipient', '$date', '$time', 'Transferee', 'Processed', '$amount', '$account', '$old_recipient')";
+                    $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance, Description, mil_time, corresponding_transaction) VALUES ('$num_sender', '$account', '$date', '$time', 'Transfer', 'Processed', '-$amount', '$recipient', '$old_sender', '$description_sender', '$mtime', '$num_recipient')";
+                    $result = mysqli_query($conn, $sql);
+                    $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance, Description, mil_time, corresponding_transaction) VALUES ('$num_recipient', '$recipient', '$date', '$time', 'Transferee', 'Processed', '$amount', '$account', '$old_recipient', '$description_recipient', '$mtime', '$num_sender')";
                     $result = mysqli_query($conn, $sql);
                     mysqli_close($conn);
                     header("Location: user.php");
@@ -110,6 +113,8 @@
         $old_sender = $_SESSION['old_sender'];
         $_SESSION['TFA'] = FALSE;
         $_SESSION['TFA_Token'] = FALSE;
+        $description_sender = "Transfer to Account Number: " . $account;
+        $description_recipient = "Transfer from Account Number: " . $recipient;
         $conn = mysqli_connect("localhost", "root", "", "users");
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
@@ -127,9 +132,10 @@
         date_default_timezone_set('America/Los_Angeles');
         $date = date("m/d/Y");
         $time = date("h:i:sa");
+        $mtime = date("H:i:s");
         $year = (date("Y") - 1001) * pow(10, 8);
-        $num = $year + rand(0, 99999999);
-        $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+        $num_sender = $year + rand(0, 99999999);
+        $sql="SELECT * FROM Transactions WHERE transaction_num='$num_sender'";
         $result = mysqli_query($conn, $sql);
         $duplicate = mysqli_num_rows($result);
         $count = 0;
@@ -138,16 +144,14 @@
                 $year = $year + 1;
                 $count = 0;
             }
-            $num = $year + rand(0, 99999999);
-            $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+            $num_sender = $year + rand(0, 99999999);
+            $sql="SELECT * FROM Transactions WHERE transaction_num='$num_sender'";
             $result = mysqli_query($conn, $sql);
             $duplicate = mysqli_num_rows($result);
             $count = $count + 1;
         }
-        $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance) VALUES ('$num', '$account', '$date', '$time', 'Transfer', 'Processed', '-$amount', '$recipient', '$old_sender')";
-        $result = mysqli_query($conn, $sql);
-        $num = $year + rand(0, 99999999);
-        $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+        $num_recipient = $year + rand(0, 99999999);
+        $sql="SELECT * FROM Transactions WHERE transaction_num='$num_recipient'";
         $result = mysqli_query($conn, $sql);
         $duplicate = mysqli_num_rows($result);
         $count = 0;
@@ -156,13 +160,15 @@
                 $year = $year + 1;
                 $count = 0;
             }
-            $num = $year + rand(0, 99999999);
-            $sql="SELECT * FROM Transactions WHERE transaction_num='$num'";
+            $num_recipient = $year + rand(0, 99999999);
+            $sql="SELECT * FROM Transactions WHERE transaction_num='$num_recipient'";
             $result = mysqli_query($conn, $sql);
             $duplicate = mysqli_num_rows($result);
             $count = $count + 1;
         }
-        $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance) VALUES ('$num', '$recipient', '$date', '$time', 'Transferee', 'Processed', '$amount', '$account', '$old_recipient')";
+        $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance, Description, mil_time, corresponding_transaction) VALUES ('$num_sender', '$account', '$date', '$time', 'Transfer', 'Processed', '-$amount', '$recipient', '$old_sender', '$description_sender', '$mtime', '$num_recipient')";
+        $result = mysqli_query($conn, $sql);
+        $sql = "INSERT INTO Transactions (transaction_num, accountNum, date_occured, time_occured, transaction_type, transaction_status, amount, location, old_balance, Description, mil_time, corresponding_transaction) VALUES ('$num_recipient', '$recipient', '$date', '$time', 'Transferee', 'Processed', '$amount', '$account', '$old_recipient', '$description_recipient', '$mtime', '$num_sender')";
         $result = mysqli_query($conn, $sql);
         mysqli_close($conn);
         header("Location: user.php");
