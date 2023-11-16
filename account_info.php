@@ -59,8 +59,11 @@
                     if ($transactions["transaction_status"] == "Processed") {
                         echo "<span class=\"status\" style=\"color:green\">" . $transactions["transaction_status"] . "</span>";
                     }
-                    else {
+                    else if ($transactions["transaction_status"] == "Denied") {
                         echo "<span class=\"status\" style=\"color:red\">" . $transactions["transaction_status"] . "</span>";
+                    }
+                    else {
+                        echo "<span class=\"status\" style=\"color:gray\">" . $transactions["transaction_status"] . "</span>";
                     }
                     echo "<span class=\"date\">" . "Date: " . $transactions["date_occured"] . " | Time: " . $transactions["time_occured"] . "</span>";
                     echo "<span class=\"obal\">" . "$" . $transactions["old_balance"] . "</span>";
