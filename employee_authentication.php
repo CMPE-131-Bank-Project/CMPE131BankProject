@@ -30,6 +30,7 @@
     else if ($_SESSION['TFA_Token'] == TRUE && $_SESSION['Last_Location'] == "employee_authentication.php") {
         $_SESSION['e_logged_in'] = TRUE;
         $_SESSION['TFA_Token'] = FALSE;
+        $_SESSION['time'] = time();
         header("Location: employee.php");
     }
     else {
