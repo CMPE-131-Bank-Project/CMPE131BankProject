@@ -1,7 +1,9 @@
 <?php
     session_start();
     if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.php");
+    else if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
     else if (isset($_POST['account']) && isset($_POST['recipient']) && isset($_POST['amount'])) {
+        $_SESSION['time'] = time();
         if ($_POST['account'] && $_POST['recipient'] && $_POST['amount']) {
             $_SESSION['Last_Location'] = "transfer.php";
             $username = $_SESSION['username'];
