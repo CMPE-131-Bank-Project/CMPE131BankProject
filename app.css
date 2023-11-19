@@ -1,11 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 body{
     background: url('../employee_i.jpeg');
     background-size: cover;
     font-size: 16px;
     background-position-y: -60;
-
-  
+    font-family: "Poppins", sans-serif;
 }
 
 
@@ -34,19 +34,21 @@ body{
 }
 
 .form-group i {
-    padding-top: 5px;
-    padding-right: 10px;
-    font-size: 20px;
-    color: #fff;
+  padding-top: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  color: #fff;
 }
 
 .form-group{
-    border-bottom: 1px solid #fff;
     margin-top: 15px;
     margin-bottom: 20px;
     position: relative;
+}
 
-
+.form-group input {
+  border-bottom: 1px solid #fff;
+  width: 100%;
 }
 
 .form-input{
@@ -85,11 +87,9 @@ body{
   }
   
   .label-checkbox100 {
-    font-family: Poppins-Regular;
     font-size: 20px;
     color: #fff;
     line-height: 1.2;
-  
     display: block;
     position: relative;
     padding-left: 26px;
@@ -101,7 +101,6 @@ body{
     font-family: Material-Design-Iconic-Font;
     font-size: 13px;
     color: transparent;
-  
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -159,7 +158,12 @@ footer {
 
 footer a {
     text-decoration: none; 
-    color: #af356a;         }
+    color: #af356a;         
+}
+
+footer p {
+  color: #af356a;  
+}
 
 footer a:hover {
     color: #54a0ff; 
@@ -167,10 +171,10 @@ footer a:hover {
 
 .turuncubaslik-bold {
 	color:#333;
-font-size:14px;
- border-bottom: 1px dotted #000;
-    text-decoration: none;	
-	}
+  font-size:14px;
+  border-bottom: 1px dotted #000;
+  text-decoration: none;	
+}
 
 
 /******keyboard*******/
