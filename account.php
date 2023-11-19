@@ -1,7 +1,9 @@
 <?php 
         session_start();
         if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+        else if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
         else {
+            $_SESSION['time'] = time();
             $username = $_SESSION['username'];
             if (isset($_POST["acc"])) {
                 if ($_POST["acc"]) {
