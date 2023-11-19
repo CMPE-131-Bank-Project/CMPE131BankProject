@@ -16,6 +16,16 @@
             $sql = "SELECT TFAcode FROM Employees WHERE employee_id = '$id'";
             $results = mysqli_query($conn, $sql);
         }
+        else if ($_SESSION['logged_in'] == TRUE) {
+            $username = $_SESSION['username'];
+            $sql = "SELECT TFAcode FROM registrations WHERE username = '$username'";
+            $results = mysqli_query($conn, $sql);
+        }
+        else if ($_SESSION['e_logged_in'] == TRUE) {
+            $id = $_SESSION['id'];
+            $sql = "SELECT TFAcode FROM Employees WHERE employee_id = '$id'";
+            $results = mysqli_query($conn, $sql);
+        }
         if ($results) {
             session_start();
             $row = mysqli_fetch_assoc($results);
