@@ -11,12 +11,12 @@
         $date = date("m/d/Y");
         $time = date("h:i:sa");
         $mtime = date("H:i:s");
-        if ($decision == "accept") {
-            $amount = $_POST["amount"];
-            $sql = "SELECT Balance FROM BankAccounts WHERE accountNum='$account'";
-            $result = mysqli_query($conn, $sql);
-            $info = mysqli_fetch_assoc($result);
-            $obal = $info["Balance"];
+        $amount = $_POST["amount"];
+        $sql = "SELECT Balance FROM BankAccounts WHERE accountNum='$account'";
+        $result = mysqli_query($conn, $sql);
+        $info = mysqli_fetch_assoc($result);
+        $obal = $info["Balance"];
+        if ($decision == "approve") {
             $bal = $obal + $amount;
             $sql = "UPDATE Transactions SET date_occured='$date', time_occured='$time', transaction_status='Processed', old_balance='$obal', mil_time='$mtime' WHERE transaction_num='$transaction'";
             $result = mysqli_query($conn, $sql);
@@ -26,7 +26,7 @@
             $result = mysqli_query($conn, $sql);
         }
         else if ($decision == "deny") {
-            $sql = "UPDATE Transactions SET date_occured='$date', time_occured='$time', transaction_status='Denied', mil_time='$mtime' WHERE transaction_num='$transaction'";
+            $sql = "UPDATE Transactions SET date_occured='$date', time_occured='$time', transaction_status='Denied', mil_time='$mtime', old_balance='$obal' WHERE transaction_num='$transaction'";
             $result = mysqli_query($conn, $sql);
             $sql = "DELETE FROM deposits WHERE transaction_num='$transaction'";
             $result = mysqli_query($conn, $sql);
