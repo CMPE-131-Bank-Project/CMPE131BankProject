@@ -1,14 +1,21 @@
 <?php 
     session_start();
     if (isset($_POST["code"]) && isset($_SESSION['TFA']) == TRUE && $_SESSION['TFA'] == TRUE) {
-        $username = $_SESSION['username'];
-        $code = $_POST["code"];
         $conn = mysqli_connect("localhost", "root", "", "users");
+        $code = $_POST["code"];
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT TFAcode FROM registrations WHERE username = '$username'";
-        $results = mysqli_query($conn, $sql);
+        if ($_SESSION['Last_Location'] == "authentication.php") {
+            $username = $_SESSION['username'];
+            $sql = "SELECT TFAcode FROM registrations WHERE username = '$username'";
+            $results = mysqli_query($conn, $sql);
+        }
+        else if ($_SESSION['Last_Location'] == "employee_authentication.php") {
+            $id = $_SESSION['id'];
+            $sql = "SELECT TFAcode FROM Employees WHERE employee_id = '$id'";
+            $results = mysqli_query($conn, $sql);
+        }
         if ($results) {
             session_start();
             $row = mysqli_fetch_assoc($results);
