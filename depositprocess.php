@@ -133,6 +133,7 @@
                 }
             } 
         }
+        mysqli_close($conn);
     }
     else header("Location: user.php")
 ?>
