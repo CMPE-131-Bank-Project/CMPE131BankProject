@@ -1,10 +1,17 @@
 <?php
-    $conn = mysqli_connect("localhost", "root", "", "users");
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    session_start();
+    if(isset($_SESSION['e_logged_in']) == FALSE) header("Location: EmployeeLogin.php");
+    else if ($_SESSION['TFA'] == TRUE) header("Location: MultiFactor.php");
+    else if ($_SESSION['TFA'] == FALSE && $_SESSION['e_logged_in'] == FALSE) header("Location: EmployeeLogin.php");
+    else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == FALSE) header("Employee_Login.php");
+    else {
+        $conn = mysqli_connect("localhost", "root", "", "users");
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM BankAccounts ORDER BY Balance DESC";
+        $result = mysqli_query($conn, $sql);
     }
-    $sql = "SELECT * FROM BankAccounts ORDER BY Balance DESC";
-    $result = mysqli_query($conn, $sql);
 ?>
 
 <html>
@@ -13,6 +20,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="employee.css">
+        <script defer src="employee.js"></script>
+        <title>Employee</title>
     </head>
     <body>
         <table>
@@ -36,6 +45,7 @@
                     echo "<caption>Total Bank Accounts (" . $num . ")</caption>";
                 ?>
         </table>
+        <br>
         <table>
             <thead>
                 <th>Front of Check</th>
@@ -53,12 +63,13 @@
                         echo "<tr><td><img src=\"" . $deposits["frontcheck"] . "\"></td>";
                         echo "<td><img src=\"" . $deposits["backcheck"] . "\"></td>";
                         echo "<td><input type=\"hidden\" name=\"amount\" value=\"" . $deposits["amount"] . "\">$" . $deposits["amount"] . "</td>";
-                        echo "<td><button name=\"decision\" type=\"submit\" value=\"accept\">Accept</button><button name=\"decision\" type=\"submit\" value=\"deny\">Deny</button></tr></form>";
+                        echo "<td><button name=\"decision\" type=\"submit\" value=\"approve\">Approve</button>     <button name=\"decision\" type=\"submit\" value=\"deny\">Deny</button></tr></form>";
                         $num++;
                     }
                     echo "</tbody>";
                     echo "<caption>Pending Online Deposits (" . $num . ")</caption>";
                 ?>
         </table>
+        <a href="Logout.php">Logout</a>
     </body>
 </html>
