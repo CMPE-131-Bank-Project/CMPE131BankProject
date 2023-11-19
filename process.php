@@ -24,6 +24,7 @@
                 $state = $_POST["state"];
                 $zip = $_POST["zip"];
                 $pin = $_POST["pin"];
+                $full_license = $lstate . $license;
                 $sql="SELECT * FROM registrations WHERE username='$username'";
                 $result = mysqli_query($conn, $sql);
                 $count = mysqli_num_rows($result);
@@ -48,7 +49,13 @@
                 if($count>0) {
                     echo "<script>alert('Registration unsuccessful.');window.location.href='Registration.php';</script>";
                 }
-                $sql = "INSERT INTO registrations (username, password, fname, lname, email, address, address2, phone, ssn, state, lstate, license, city, zip, pin) VALUES ('$username', '$password', '$first', '$last', '$email', '$address', '$address2', '$phone', '$ssn', '$state', '$lstate', '$license', '$city', '$zip', '$pin')";
+                $sql="SELECT * FROM registrations WHERE full_license='$full_license'";
+                $result = mysqli_query($conn, $sql);
+                $count = mysqli_num_rows($result);
+                if($count>0) {
+                    echo "<script>alert('Registration unsuccessful.');window.location.href='Registration.php';</script>";
+                }
+                $sql = "INSERT INTO registrations (username, password, fname, lname, email, address, address2, phone, ssn, state, lstate, license, city, zip, pin, full_license) VALUES ('$username', '$password', '$first', '$last', '$email', '$address', '$address2', '$phone', '$ssn', '$state', '$lstate', '$license', '$city', '$zip', '$pin', '$full_license')";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
                     mkdir("images/" . $username . "/", 0777);
