@@ -3,7 +3,9 @@
     if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.php");
     else if ($_SESSION['TFA'] == TRUE) header("Location: MultiFactor.php");
     else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+    else if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
     else if (isset($_POST["acc"]) && isset($_POST["pin"]) && isset($_POST["amount"])) {
+        $_SESSION['time'] = time();
         $acc = $_POST["acc"];
         $input_pin = $_POST["pin"];
         $amount = $_POST["amount"];
