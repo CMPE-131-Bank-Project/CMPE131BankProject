@@ -1,5 +1,7 @@
 <?php 
-    if (isset($_POST["account_num"]) && isset($_POST["decision"]) && isset($_POST["transaction_num"]) && isset($_POST["amount"])) {
+    if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
+    else if (isset($_POST["account_num"]) && isset($_POST["decision"]) && isset($_POST["transaction_num"]) && isset($_POST["amount"])) {
+        $_SESSION['time'] = time();
         $conn = mysqli_connect("localhost", "root", "", "users");
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
