@@ -14,7 +14,6 @@
                 $sql = "SELECT password FROM registrations WHERE username = '$username'";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
-                    session_start();
                     $row = mysqli_fetch_assoc($results);
                     if ($row["password"] === $password) {
                         $_SESSION['logged_in'] = FALSE;
@@ -34,6 +33,7 @@
             else if ($_SESSION['TFA_Token'] == TRUE && $_SESSION['Last_Location'] == "authentication.php") {
                 $_SESSION['logged_in'] = TRUE;
                 $_SESSION['TFA_Token'] = FALSE;
+                $_SESSION['time'] = time();
                 header("Location: user.php");
             }
             else {
