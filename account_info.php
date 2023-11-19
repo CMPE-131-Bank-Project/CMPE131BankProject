@@ -4,7 +4,9 @@
     else if ($_SESSION['TFA'] == TRUE) header("Location: MultiFactor.php");
     else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
     else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
+    else if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
     else if (isset($_POST["account"])) {
+        $_SESSION['time'] = time();
         $conn = mysqli_connect("localhost", "root", "", "users");
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
