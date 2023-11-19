@@ -4,6 +4,7 @@
         if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
         else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
     }
+    else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
 ?>
 
 <html>
