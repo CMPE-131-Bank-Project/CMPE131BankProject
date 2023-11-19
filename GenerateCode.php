@@ -19,6 +19,16 @@
             $sql = "UPDATE Employees SET TFAcode='$code' WHERE employee_id = '$id'";
             $results = mysqli_query($conn, $sql);
         }
+        else if ($_SESSION['logged_in'] == TRUE) {
+            $username = $_SESSION['username'];
+            $sql = "UPDATE registrations SET TFAcode='$code' WHERE username = '$username'";
+            $results = mysqli_query($conn, $sql);
+        }
+        else if ($_SESSION['e_logged_in'] == TRUE) {
+            $id = $_SESSION['id'];
+            $sql = "UPDATE Employees SET TFAcode='$code' WHERE employee_id = '$id'";
+            $results = mysqli_query($conn, $sql);
+        }
         header("Location: send-email.php");
     }
 ?>
