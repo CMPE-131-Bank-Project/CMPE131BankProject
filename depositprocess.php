@@ -4,7 +4,9 @@
     else if (isset($_POST['account']) == FALSE) echo "<script>alert('Error: No accounts to deposit into.');window.location.href='user.php';</script>";
     else if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
     else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+    else if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
     else if (isset($_FILES['frontCheck']) && isset($_FILES['backCheck']) && isset($_POST['account'])) {
+        $_SESSION['time'] = time();
         $phpFileUploadErrors = array(
             0 => 'There is no error, the file uploaded with success',
             1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
