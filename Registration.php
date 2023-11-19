@@ -162,8 +162,15 @@
                     });
                 </script>
                 <div class="input-box">
-                    <input type="text" placeholder="" id="zip" name ="zip">
+                    <input type="text" placeholder="" id="zip" name ="zip" minlength="5" maxlength="5">
                     <span class="floating-label">Zip Code</span>
+                    <script>
+                        $(function() {
+                            $("input[name='zip']").on('input', function(e) {
+                                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                            });
+                        });
+                    </script>
                 </div>
 
                 <button type="submit" class="btn">Register</button>
