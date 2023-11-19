@@ -3,6 +3,7 @@
     if(isset($_SESSION['logged_in']) == FALSE || $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
     else if ($_SESSION['TFA'] == TRUE && $_SESSION['logged_in'] == FALSE) header("Location: MultiFactor.php");
     else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
+    else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
     else {
         $logged_in = $_SESSION['logged_in'];
         $username = $_SESSION['username'];
