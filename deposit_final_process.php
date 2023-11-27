@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     if (time() - $_SESSION['time'] > 600) header("Location: Logout.php");
     else if (isset($_POST["account_num"]) && isset($_POST["decision"]) && isset($_POST["transaction_num"]) && isset($_POST["amount"])) {
         $_SESSION['time'] = time();
