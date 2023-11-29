@@ -34,7 +34,7 @@
                 $_SESSION['logged_in'] = TRUE;
                 $_SESSION['TFA_Token'] = FALSE;
                 $_SESSION['time'] = time();
-                header("Location: user.php");
+                header("Location: update.php");
             }
             else {
                 header("Location: Login.php");
