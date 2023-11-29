@@ -28,7 +28,7 @@
         $info = mysqli_fetch_assoc($result);
         $email = $info['email'];
         $body = $_SESSION['body'];
-        $name = "Online Banking Website";
+        $name = "Bank of the Future";
     
         $mail = new PHPMailer(true);
     
