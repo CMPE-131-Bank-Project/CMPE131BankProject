@@ -8,16 +8,20 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT password FROM Employees WHERE employee_id = '$id'";
+        $sql = "SELECT * FROM Employees WHERE employee_id = '$id'";
         $results = mysqli_query($conn, $sql);
         if ($results) {
             $row = mysqli_fetch_assoc($results);
-            if ($row["password"] === $password) {
+            if ($row["password"] === $password && $row["status"] == "Hired") {
                 $_SESSION['e_logged_in'] = FALSE;
                 $_SESSION['id'] = $id;
                 $_SESSION['TFA'] = TRUE;
+                $_SESSION['tier'] = $row["tier"];
                 echo "<script>window.location.href='GenerateCode.php';</script>";
             } 
+            else if ($row["status"] == "Terminated") {
+                echo "<script>alert('Sorry. You are no longer with the company.');window.location.href='Logout.php';</script>";
+            }
             else {
                 echo "<script>alert('Login Failed');window.location.href='Logout.php';</script>";
             }
