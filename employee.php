@@ -26,6 +26,23 @@
         <title>Employee</title>
     </head>
     <body>
+        <h1>
+            <?php
+                $id = $_SESSION['id'];
+                $sql = "SELECT * FROM Employees WHERE employee_id = '$id'";
+                $results = mysqli_query($conn, $sql);
+                $ename = mysqli_fetch_assoc($results);
+                $name = $ename["fname"] . " " . $ename["lname"];
+                print "<span style=\"font-weight: bold;\">Welcome to work, " . $name . $_SESSION['tier'] . "!</span>";
+            ?>
+            <div class="lbtn">
+                <a href="Logout.php" class="log logbutton" name="logout">Logout</a>
+            </div>
+            <div class="lbtn">
+                <a href="Registration.php" class="log logbutton" name="logout">New User</a>
+            </div>
+
+        </h1><br>
         <table>
             <thead>
                 <th>Account Number</th>
@@ -72,6 +89,5 @@
                     echo "<caption>Pending Online Deposits (" . $num . ")</caption>";
                 ?>
         </table>
-        <a href="Logout.php">Logout</a>
     </body>
 </html>
