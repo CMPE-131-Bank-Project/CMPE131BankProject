@@ -120,7 +120,7 @@
             </form>
         </div>          
         <footer>
-            <p><a href="HomePage.php">Go back to the Homepage</a></p>
+            <p><a href="HomePage.html">Go back to the Homepage</a></p>
         </footer>
     </body>
 </html>
