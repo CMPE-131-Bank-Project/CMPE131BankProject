@@ -3,28 +3,33 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
 .title {
-    font-size: 36px; 
+    font-size: 36px;
     font-weight: bold;
-    color: #003366; 
-    text-transform: uppercase; 
-    letter-spacing: 4px; 
-    text-align: center; 
-    margin-top: 20px; 
+    color: #003366;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 header {
     background-color: #003366;
     color: #fff;
     text-align: center;
-    padding: 20px 0; 
+    padding: 20px 0;
 }
 
 header ul {
     list-style: none;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
 
 header ul li {
@@ -49,7 +54,7 @@ header ul li a {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
 .search-box button {
@@ -63,7 +68,7 @@ header ul li a {
 }
 
 .employee-login {
-    margin-right: 20px; 
+    margin-right: 20px;
 }
 
 .employee-login a {
@@ -85,47 +90,60 @@ header ul li a {
     height: auto;
     float: left;
     margin-left: 80px;
-  
-    
 }
-
 
 .title2 {
     font-size: 20px;
     color: #003366;
     text-transform: uppercase;
-    font-family:  'Times New Roman';
+    font-family: 'Times New Roman';
     margin-left: 750px;
-
 }
 
-.para1{
+.para1 {
     font-size: 18px;
     line-height: 1.5;
-    margin-left: 600px; 
+    margin-left: 600px;
 }
 
-p{
-    font-size: 18px;
-    line-height: 1.5;
-    
-}
 
-.title3 {
-    font-size: 20px;
-    color: #003366;
-    text-transform: uppercase;
-    font-family:  'Times New Roman';
-    
-}
-
-.types-accounts, .types-services {
-    flex-basis: 45%; 
-    background-color: #f7f7f7;
+.Services {
+    flex-basis: 45%;
+    background-color: #7d6c6c;
     padding: 20px;
     text-align: justify;
-    margin-left: 800px;
+    margin-left: 600px;
+    border-radius: 10px;
+    margin-top: 60px; 
+    margin-bottom: 20px; 
 }
+
+.Services h3.title3 {
+    color: #003366; 
+    position: right;
+}
+
+.Services p {
+    font-size: 14px; 
+    line-height: 1; 
+}
+
+.learn-more-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #003366;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+
+    margin-top: 10px; 
+}
+
+.learn-more-link:hover {
+    background-color: #0e6edb;
+}
+
 
 .options-table {
     width: 100%;
@@ -138,7 +156,9 @@ p{
     text-align: center;
 }
 
-.offer-box, .benefits-box, .help-box {
+.offer-box,
+.benefits-box,
+.help-box {
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     padding: 20px;
@@ -146,12 +166,16 @@ p{
     border-radius: 10px;
 }
 
-.offer-box p, .benefits-box p, .help-box p {
+.offer-box p,
+.benefits-box p,
+.help-box p {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.get-started-button, .sign-in-button, .help-button {
+.get-started-button,
+.sign-in-button,
+.help-button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #003366;
@@ -162,7 +186,9 @@ p{
     transition: background-color 0.3s;
 }
 
-.get-started-button:hover, .sign-in-button:hover, .help-button:hover {
+.get-started-button:hover,
+.sign-in-button:hover,
+.help-button:hover {
     background-color: #0e6edb;
 }
 
@@ -180,8 +206,6 @@ p{
     top: 0;
     left: 0;
     width: 100%;
-  
-
 }
 
 .testimonials {
@@ -204,8 +228,6 @@ p{
 .testimonial-author {
     font-weight: bold;
 }
-
-
 
 footer {
     background-color: #003366;
