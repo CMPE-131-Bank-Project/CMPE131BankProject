@@ -37,7 +37,7 @@
                             $duplicate = mysqli_num_rows($result);
                             $count = $count + 1;
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time', '$mtime')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time, last_update, last_increment) VALUES ('$num', '$username', '0', 'Checking Account', '$ir', '$date', '$time', '$mtime', '$date', '$date')";
                         $results = mysqli_query($conn, $sql);
                     }
                     else if ($acc == $save) {
@@ -59,7 +59,7 @@
                             $duplicate = mysqli_num_rows($result);
                             $count = $count + 1;
                         }
-                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time', '$mtime')";
+                        $sql = "INSERT INTO BankAccounts (accountNum, username, Balance, type, interest, dcreated, tcreated, mil_time, last_update, last_increment) VALUES ('$num', '$username', '0', 'Savings Account', '$ir', '$date', '$time', '$mtime', '$date', '$date')";
                         $results = mysqli_query($conn, $sql);
                     }
                     mysqli_close($conn);
