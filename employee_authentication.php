@@ -35,7 +35,7 @@
         $_SESSION['e_logged_in'] = TRUE;
         $_SESSION['TFA_Token'] = FALSE;
         $_SESSION['time'] = time();
-        header("Location: employee.php");
+        header("Location: update.php");
     }
     else {
         header("Location: EmployeeLogin.php");
