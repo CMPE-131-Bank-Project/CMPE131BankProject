@@ -1,8 +1,10 @@
 <?php 
     session_start();
-    if(isset($_SESSION['logged_in']) == FALSE) header("Location: Login.php");
-    else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == FALSE) header("Location: Login.php");
-    else if ($_SESSION['TFA'] == FALSE && $_SESSION['logged_in'] == TRUE) header("Location: user.php");
+    if(isset($_SESSION['TFA']) == FALSE || $_SESSION['TFA'] == FALSE) {
+        if (isset($_SESSION['e_logged_in'])) header("Location: EmployeeLogin.php");
+        else if (isset($_SESSION['logged_in'])) header("Location: Login.php");
+        else header("Location: HomePage.html");
+    }
 ?>
 
 <html>
@@ -18,7 +20,7 @@
     <body>
     <div class="wrapper">
             <form action="MultiFactorProcess.php" method="post"> 
-                <h1>Mult-Factor Authentication</h1>
+                <h1>Multi-Factor Authentication</h1>
                 <div class="input-box">
                     <input type="text" placeholder="" name ="code" maxlength="6" minlength="6" required>
                     <i class='bx bx-dialpad'></i>
