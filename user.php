@@ -52,7 +52,7 @@
                 <a onclick="togglePopup()" style="cursor: pointer;" class="log logbutton" name="OpenAccount">Open an Account</a>
             </div>
         </h1>
-        <form action="account_info.php" method="post">
+        <form action="update.php" method="post">
             <div class="account">
                 <br>
                 <p class="name"><span>Account(s)</span></p><br>
