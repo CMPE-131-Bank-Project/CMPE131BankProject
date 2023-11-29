@@ -54,5 +54,6 @@
         header("Location: MultiFactor.php");
     }
     else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
-    else header("Location: Login.php");
+    else if ($_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
+    else header("Location: HomePage.html");
 ?>
