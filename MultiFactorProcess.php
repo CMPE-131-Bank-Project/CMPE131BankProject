@@ -44,5 +44,6 @@
         }
     }
     else if ($_SESSION['logged_in'] == TRUE && $_SESSION['TFA'] == FALSE) header("Location: user.php");
-    else header("Location: Login.php");
+    else if ($_SESSION['e_logged_in'] == TRUE && $_SESSION['TFA'] == FALSE) header("Location: employee.php");
+    else header("Location: HomePage.html");
 ?>
