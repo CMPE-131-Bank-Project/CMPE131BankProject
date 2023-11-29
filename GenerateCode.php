@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    if(isset($_SESSION['TFA']) == FALSE || $_SESSION['TFA'] == FALSE) header("Location: Login.php");
+    if(isset($_SESSION['TFA']) == FALSE || $_SESSION['TFA'] == FALSE) header("Location: HomePage.html");
     else {
         $conn = mysqli_connect("localhost", "root", "", "users");
         if (!$conn) {
