@@ -8,7 +8,7 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT * FROM Employees WHERE employee_id = '$id'";
+        $sql = "SELECT password, status, email FROM Employees WHERE employee_id = '$id'";
         $results = mysqli_query($conn, $sql);
         if ($results) {
             $row = mysqli_fetch_assoc($results);
@@ -17,6 +17,7 @@
                 $_SESSION['id'] = $id;
                 $_SESSION['TFA'] = TRUE;
                 $_SESSION['tier'] = $row["tier"];
+                $_SESSION['email'] = $row["email"];
                 echo "<script>window.location.href='GenerateCode.php';</script>";
             } 
             else if ($row["status"] == "Terminated") {
