@@ -11,7 +11,7 @@
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 }
-                $sql = "SELECT password FROM registrations WHERE username = '$username'";
+                $sql = "SELECT password, email FROM registrations WHERE username = '$username'";
                 $results = mysqli_query($conn, $sql);
                 if ($results) {
                     $row = mysqli_fetch_assoc($results);
@@ -19,6 +19,7 @@
                         $_SESSION['logged_in'] = FALSE;
                         $_SESSION['username'] = $username;
                         $_SESSION['TFA'] = TRUE;
+                        $_SESSION['email'] = $row["email"];
                         echo "<script>window.location.href='GenerateCode.php';</script>";
                     } 
                     else {
