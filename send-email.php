@@ -34,6 +34,8 @@
         unset($_SESSION['body'], $_SESSION['subject']);
     
         if ($subject == "Multi-Factor Authentication") header("Location: MultiFactor.php");
+        else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
+        else if ($_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
         else if ($_SESSION['e_forgot'] == TRUE || $_SESSION['u_forgot'] == TRUE) header("Location: Logout.php");
         else header("Location: HomePage.html");
     }
