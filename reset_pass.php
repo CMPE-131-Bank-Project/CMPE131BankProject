@@ -60,7 +60,7 @@
                         <button name="pass" class="btn btn-lg btn-primary btn-block" value="1" type="submit">Reset Password</button>
                       </div>
                       <div class="form-group">
-                        <a href="Logout.php" class="btn btn-lg btn-secondary btn-block">Home</a>
+                        <a href="Logout.php" class="btn btn-lg btn-secondary btn-block">Back to Login</a>
                       </div>
                     </form>
     
