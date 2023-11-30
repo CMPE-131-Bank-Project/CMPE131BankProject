@@ -45,6 +45,28 @@ header ul li a {
     margin-left: 20px;
 }
 
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.search-box button {
+    background: none;
+    border: none;
+}
+
+.search-box img {
+    width: 18px;
+    height: 18px;
+}
+
 .employee-login {
     margin-right: 20px;
 }
