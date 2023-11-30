@@ -25,10 +25,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="inquiries.css">
         <script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <title>Inquiries</title>
     </head>
     <body>
         <h1>
+            <a style="color: white;" href="HomePage.html"><i class='bx bx-building-house'></i></a>
             <?php
                 print "<span style=\"font-weight: bold;\">Inquiries</span>";
             ?>
@@ -52,6 +54,7 @@
         </h1><br>
         <table>
             <thead>
+                <th>Ticket Number</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Question</th>
@@ -66,12 +69,13 @@
                     $num = 0;
                     while ($inquiries = mysqli_fetch_assoc($result)) {
                         echo "<form action=\"inquiry_process.php\" method=\"post\"><input type=\"hidden\" name=\"ticket\" value=\"" . $inquiries["ticket"] . "\">";
-                        echo "<tr><td>" . $inquiries["name"] . "</td>";
+                        echo "<tr><td>" . $inquiries["ticket"] . "</td>";
+                        echo "<td>" . $inquiries["name"] . "</td>";
                         echo "<td>" . $inquiries["email"] . "</td>";
                         echo "<td>" . $inquiries["question"] . "</td>";
                         echo "<td>" . $inquiries["date"] . "</td>";
                         echo "<td>" . $inquiries["time"] . "</td>";
-                        echo "<td><button name=\"action\" type=\"submit\" value=\"resolve\">Resolve</button>";
+                        echo "<td><button name=\"action\" type=\"submit\" value=\"resolve\">Resolve</button></form>";
                         $num++;
                     }
                     echo "</tbody>";
@@ -80,6 +84,7 @@
         </table><br>
         <table>
             <thead>
+            <th>Ticket Number</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Question</th>
@@ -94,12 +99,13 @@
                     $num = 0;
                     while ($inquiries = mysqli_fetch_assoc($result)) {
                         echo "<form action=\"inquiry_process.php\" method=\"post\"><input type=\"hidden\" name=\"ticket\" value=\"" . $inquiries["ticket"] . "\">";
-                        echo "<tr><td>" . $inquiries["name"] . "</td>";
+                        echo "<tr><td>" . $inquiries["ticket"] . "</td>";
+                        echo "<td>" . $inquiries["name"] . "</td>";
                         echo "<td>" . $inquiries["email"] . "</td>";
                         echo "<td>" . $inquiries["question"] . "</td>";
                         echo "<td>" . $inquiries["date"] . "</td>";
                         echo "<td>" . $inquiries["time"] . "</td>";
-                        echo "<td><button name=\"action\" type=\"submit\" value=\"reopen\">Reopen</button>";
+                        echo "<td><button name=\"action\" type=\"submit\" value=\"reopen\">Reopen</button></form>";
                         $num++;
                     }
                     echo "</tbody>";
