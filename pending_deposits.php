@@ -27,10 +27,12 @@
         <link rel="stylesheet" href="pending_deposits.css">
         <script defer src="pending_deposits.js"></script>
         <script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <title>Pending Deposits</title>
     </head>
     <body>
         <h1>
+            <a style="color: white;" href="HomePage.html"><i class='bx bx-building-house'></i></a>
             <?php
                 print "<span style=\"font-weight: bold;\">Pending Deposits</span>";
             ?>
