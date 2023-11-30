@@ -1,8 +1,8 @@
+
 <html>
 <head>
     <link rel="stylesheet" href="EmployeeProfile.css">
     <title>Contact Us - Bank of the Future</title>
-
 </head>
 <body>
     <h4 class="title">Bank of the Future</h4>
@@ -10,33 +10,47 @@
         <nav>
             <ul>
                 <li><a href="HomePage.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a href="EmployeeLogIn.php">Employee Login</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="TypesOfAccts.html">Services</a></li>
+                <li><a href="EmployeeLogin.php">Employee Login</a></li>
             </ul>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         </nav>
     </header>
 
-
-    <form  method="post" action="ProcessContact.php">
+    <form method="post" action="contact_process.php">
         <label for="name">Name:</label>
-        <input type="text" name="name" required><br>
+        <input type="text" name="name" id="name" required><br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email"  required><br>
+        <input type="email" name="email" id="email" required><br>
 
         <label for="question">Question:</label>
-        <textarea type = "question"  name="question"  required></textarea><br>
-
-        <input type="submit" value="Submit">
+        <textarea name="question" id="field" onkeyup="countChar(this)" maxlength="500" required></textarea><br>
+        <div style="text-align: right; font-size: 12px; color: gray;" id="charNum"></div>
+        <script>
+            function countChar(val) {
+                var len = val.value.length;
+                if (len >= 500) {
+                    val.value = val.value.substring(0, 500);
+                } else {
+                    var num = 500 - len;
+                    var cleft = "Remaining Characters: " + num;
+                    $('#charNum').text(cleft);
+                }
+            };
+        </script>
+        <input type="submit">
     </form>
-   <br><br>
+   
+
+
+
+
     <footer>
-        <p>&copy; Bank of the Future</p>
+        <p style="text-align: center;">&copy; Bank of the Future</p>
     </footer>
 </body>
-
 </html>
 
 
@@ -44,80 +58,61 @@
 
 
     <style>
-       body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
 
-h4.title, header {
-    background-color: #004080;
-    color: #fff;
-    text-align: center;
-    padding: 15px;
-}
+        h4.title {
+            background-color: #003a70;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
 
-form {
-    max-width: 400px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 30px;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+        header {
+            background-color: #003a70;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: bold;
-}
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
 
-input[type="text"],
-input[type="email"],
-textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-}
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-    border-color: #004080;
-}
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
 
-input[type="submit"] {
-    background-color: #004080;
-    color: #fff;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #002b4d;
-}
-
-footer {
-    background-color: #004080;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
+        input[type="submit"] {
+            background-color: #003a70;
+            color: orange;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
     </style>
-
 
 
 
