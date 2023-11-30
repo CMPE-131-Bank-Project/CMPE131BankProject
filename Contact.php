@@ -2,6 +2,7 @@
 <head>
     <link rel="stylesheet" href="EmployeeProfile.css">
     <title>Contact Us - Bank of the Future</title>
+
 </head>
 <body>
     <h4 class="title">Bank of the Future</h4>
@@ -35,6 +36,7 @@
         <p>&copy; Bank of the Future</p>
     </footer>
 </body>
+
 </html>
 
 
