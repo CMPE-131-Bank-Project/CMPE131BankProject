@@ -30,11 +30,7 @@
 
         <input type="submit" value="Submit">
     </form>
-   
-
-
-
-
+   <br><br>
     <footer>
         <p>&copy; Bank of the Future</p>
     </footer>
