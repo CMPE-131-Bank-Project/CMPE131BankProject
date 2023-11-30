@@ -27,16 +27,19 @@
         <link rel="stylesheet" href="employee.css">
         <script defer src="employee.js"></script>
         <script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <title>Employee</title>
     </head>
     <body>
         <h1>
+            <a style="color: white;" href="HomePage.html"><i class='bx bx-building-house'></i></a>
             <?php
                 $sql = "SELECT * FROM Employees WHERE employee_id = '$id'";
                 $results = mysqli_query($conn, $sql);
                 $ename = mysqli_fetch_assoc($results);
                 $name = $ename["fname"] . " " . $ename["lname"];
-                print "<span style=\"font-weight: bold;\">Welcome to work, " . $name . $_SESSION['tier'] . "!</span>";
+                $employee_name = $name;
+                print "<span style=\"font-weight: bold;\">Welcome to work, " . $name . "!</span>";
             ?>
             <div class="lbtn">
                 <a href="Logout.php" class="log logbutton" name="logout">Logout</a>
@@ -66,6 +69,16 @@
                     echo "<a href=\"inquiries.php\" class=\"log logbutton\" name=\"inquiries\">Inquiries ($in)</a>";
                 ?>
             </div>
+            <?php
+                if ($_SESSION['tier'] > 1) {
+                    echo "<div class=\"lbtn\">";
+                    echo "<a onclick=\"togglePopupTwo()\" style=\"cursor: pointer;\" class=\"log logbutton\" name=\"Terminate\">Terminate</a>";
+                    echo "</div>";
+                    echo "<div class=\"lbtn\">";
+                    echo "<a onclick=\"togglePopup()\" style=\"cursor: pointer;\" class=\"log logbutton\" name=\"Hire\">Hire</a>";
+                    echo "</div>";
+                }
+            ?>
 
         </h1><br>
         <table>
@@ -96,6 +109,72 @@
                     echo "<caption>Total Bank Accounts (" . $num . ")</caption>";
                 ?>
         </table>
+        <div class="popup" id ="popup-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopup()">&times;</div>
+                <form action="hire.php" method="post">
+                        <h2 style="font-size: 20px; font-weight: bold;">Hire</h2><br>
+                        <?php 
+                            echo "<input name=\"manager\" value=\"" . $employee_name . "\" type=\"hidden\">"
+                        ?>
+                        <label> Email:
+                            <input name = "email" type = "email" required>
+                        </label><br>
+                        <label> Tier:
+                            <select name="tier" id="tier" required>
+                                <?php 
+                                    $tier = $_SESSION['tier'] - 1;
+                                    while ($tier > 0) {
+                                        echo "<option value=\"". $tier ."\">" . $tier . "</option>";
+                                        $tier--;
+                                    }
+                                ?>
+                            </select>
+                        </label><br>
+                        <br>
+                        <button type="submit" class="btn">Hire</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup" id ="popup-2">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopupTwo()">&times;</div>
+                <form action="terminate.php" method="post">
+                        <h2 style="font-size: 20px; font-weight: bold;">Terminate</h2><br>
+                        <label> Select Employee:
+                            <select name="employee" id="employee" required>
+                                <?php 
+                                    $tier = $_SESSION['tier'];
+                                    if ($tier == 3) {
+                                        $sql = "SELECT * FROM Employees WHERE tier < '$tier'";
+                                        $result = mysqli_query($conn, $sql);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<option value=\"" . $row["employee_id"] . "\">";
+                                            if ($row['status'] == "Hired") echo $row["fname"] . " " . $row["lname"] . " (ID: " . $row["employee_id"] . ", Tier: " . $row["tier"] . ")";
+                                            else if ($row['status'] == "Pending") echo " ID: " . $row["employee_id"] . " (Pending Tier: " . $row["tier"] . " Employee)";
+                                            echo "</option>";
+                                        }
+                                    }
+                                    else if ($tier == 2) {
+                                        $sql = "SELECT * FROM Employees WHERE manager='$employee_name'";
+                                        $result = mysqli_query($conn, $sql);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<option value=\"" . $row["employee_id"] . "\">";
+                                            if ($row['status'] == "Hired") echo $row["fname"] . " " . $row["lname"] . " (ID: " . $row["employee_id"] . ", Tier: " . $row["tier"] . ")";
+                                            else if ($row['status'] == "Pending") echo " ID: " . $row["employee_id"] . " (Pending Tier: " . $row["tier"] . " Employee)";
+                                            echo "</option>";
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </label><br>
+                        <br>
+                        <button type="submit" class="btn">Terminate</button>
+                </form>
+            </div>
+        </div>
         <div class="popup" id ="popup-3">
             <div class="overlay"></div>
             <div class="content">
