@@ -5,6 +5,7 @@
         else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
     }
     else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
+    else if (isset($_SESSION['e_forgot']) || isset($_SESSION['u_forgot'])) header("Location: Logout.php");
 ?>
 
 <html>
@@ -33,8 +34,7 @@
                 </div>
 
                 <div class="remember-forgot">
-                    <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="u_forgot.php">Forgot Password or Username?</a>
                 </div>
 
                 <button type="submit" class="btn">Login</button>
