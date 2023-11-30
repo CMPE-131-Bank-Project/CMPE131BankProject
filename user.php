@@ -74,9 +74,9 @@
                 <form action="account.php" method="post">
                     <div class="container">
                         <h2>Choose an Account</h2>
-                        <input type="radio" id="checking" name="acc" value="Checking Account">
+                        <input type="radio" id="checking" name="acc" value="Checking Account" required>
                         <label for="checking">Checking Account</label> <br>
-                        <input type="radio" id="savings" name="acc" value="Savings Account">
+                        <input type="radio" id="savings" name="acc" value="Savings Account" required>
                         <label for="savings">Savings Account</label> <br>
                         <button type="submit" class="btn">Open</button>
                     </div>
