@@ -30,9 +30,6 @@
                     <input type="text" id="last" name="lname"  class="form-input" placeholder="Last Name" required>
                 </div><br>
                 <div class="form-group">
-                    <input type="text" id="email" name="email"  class="form-input" placeholder="Email" required>
-                </div><br>
-                <div class="form-group">
                     <input type="password" id="password" name="password"  class="form-input" placeholder="Password" required>
                     <span id='message'></span>
                 </div><br>
@@ -85,7 +82,7 @@
                     <script>
                         $(function() {
                             $("input[name='zip']").on('input', function(e) {
-                                $(this).val($(this).val().replace(/[^A-Z]/g, ''));
+                                $(this).val($(this).val().replace(/[^0-9]/g, ''));
                             });
                         });
                     </script>
