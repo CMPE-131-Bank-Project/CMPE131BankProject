@@ -8,7 +8,7 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT password, status, email FROM Employees WHERE employee_id = '$id'";
+        $sql = "SELECT password, status, email, tier FROM Employees WHERE employee_id = '$id'";
         $results = mysqli_query($conn, $sql);
         if ($results) {
             $row = mysqli_fetch_assoc($results);
