@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["question"])) {
         $conn = mysqli_connect("localhost", "root", "", "users");
         if (!$conn) {
@@ -30,7 +31,16 @@
         }
         $sql = "INSERT INTO support (ticket, name, email, question, date, time, mil_time) VALUES ('$ticket', '$name', '$email', '$question', '$date', '$time', '$mtime')";
         $result = mysqli_query($conn, $sql);
-        header("Location: Contact.php");
+        $_SESSION['subject'] = "Ticket #$ticket (Bank of the Future Support Team)";
+        $_SESSION['body'] = '<html><body>Ticket #' . $ticket . '<br><br>Thank you for contacting us. We are currently experiencing an influx of emails, but we will get back to you as soon as we can.<br><br>
+                            Name: ' . $name . '<br><br>Email: ' . $email . '<br><br>' . 'Question:<br>' . $question . '</body></html>'; 
+        echo "<form method = \"post\" action=\"send-email.php\" id=\"mail\"><input name=\"email\" value=\"$email\" type=\"hidden\"></form>";
+        echo "<script type=\"text/javascript\"> 
+                alert('Ticket Successfully Submitted');
+                window.onload=function(){
+                    document.forms['mail'].submit();
+                }
+              </script>";
     }
     else header("Location: HomePage.html");
 ?>
