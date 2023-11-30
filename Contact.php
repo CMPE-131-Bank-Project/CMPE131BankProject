@@ -10,10 +10,9 @@
         <nav>
             <ul>
                 <li><a href="HomePage.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a href="EmployeeLogIn.php">Employee Login</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="TypesOfAccts.html">Services</a></li>
+                <li><a href="EmployeeLogin.php">Employee Login</a></li>
             </ul>
         </nav>
     </header>
