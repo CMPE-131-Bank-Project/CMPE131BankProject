@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <link rel="stylesheet" href="EmployeeProfile.css">
@@ -10,58 +9,24 @@
         <nav>
             <ul>
                 <li><a href="HomePage.html">Home</a></li>
-                <li><a href="About Us.html">About Us</a></li>
-                <li><a href="TypesOfAccts.html">Services</a></li>
-                <li><a href="EmployeeLogin.php">Employee Login</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="EmployeeLogIn.php">Employee Login</a></li>
             </ul>
         </nav>
     </header>
 
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["question"])) {
-            $name = $_POST["name"];
-            $email = $_POST["email"];
-            $question = $_POST["question"];
 
-            // Create a connection
-            $conn = mysqli_connect("localhost", "root", "", "ContactInfo");
-
-            // Check the connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
-            // Prepare a SQL 
-            $sql = "INSERT INTO ClientInfoRequest1 (name, email, question) VALUES (?, ?, ?)";
-            $stmt = mysqli_prepare($conn, $sql);
-
-            
-            mysqli_stmt_bind_param($stmt, "sss", $name, $email, $question);
-
-            if (mysqli_stmt_execute($stmt)) {
-                echo "Data has been successfully stored in the database.";
-            } else {
-                echo "Error: " . mysqli_error($conn);
-            }
-
-            mysqli_stmt_close($stmt);
-            mysqli_close($conn); // Close the connection
-        } else {
-            echo "One or more fields are empty.";
-        }
-    }
-    ?>
-
-    <form method="post" action="contact.php">
+    <form  method="post" action="ProcessContact.php">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
+        <input type="text" name="name" required><br>
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br>
+        <input type="email" name="email"  required><br>
 
         <label for="question">Question:</label>
-        <textarea name="question" id="question" required></textarea><br>
+        <textarea type = "question"  name="question"  required></textarea><br>
 
         <input type="submit" value="Submit">
     </form>
@@ -81,61 +46,80 @@
 
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
+       body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
 
-        h4.title {
-            background-color: #003a70;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-        }
+h4.title, header {
+    background-color: #004080;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
 
-        header {
-            background-color: #003a70;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-        }
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
 
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #004080;
+}
 
-        input[type="submit"] {
-            background-color: #003a70;
-            color: orange;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+input[type="submit"] {
+    background-color: #004080;
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #002b4d;
+}
+
+footer {
+    background-color: #004080;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
     </style>
+
 
 
 
