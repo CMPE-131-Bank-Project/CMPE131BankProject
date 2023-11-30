@@ -20,7 +20,7 @@
             $result = mysqli_query($conn, $sql);
             $dup = mysqli_num_rows($result);
             if ($dup > 0) {
-                $sql = "SELECT status FROM Employees WHERE email='$email'";
+                $sql = "SELECT status, full_license FROM Employees WHERE email='$email'";
                 $result = mysqli_query($conn, $sql);
                 $status = mysqli_fetch_assoc($result);
                 if ($status["status"] == "Hired") echo "<script>alert('That person is already working at Bank of the Future.');window.location.href='employee.php';</script>";
@@ -29,8 +29,14 @@
                     $result = mysqli_query($conn, $sql);
                     $info = mysqli_fetch_assoc($result);
                     $id = $info["employee_id"];
-                    $sql = "UPDATE Employees SET status=\"Hired\" WHERE email='$email'";
-                    $result = mysqli_query($conn, $sql);
+                    if ($status["full_license"] == NULL) {
+                        $sql = "UPDATE Employees SET status=\"Pending\" WHERE email='$email'";
+                        $result = mysqli_query($conn, $sql);
+                    }
+                    else {
+                        $sql = "UPDATE Employees SET status=\"Hired\" WHERE email='$email'";
+                        $result = mysqli_query($conn, $sql);
+                    }
                     $_SESSION['subject'] = "Job Offer";
                     $_SESSION['body'] = "Congratulations on becoming a team member once again at Bank of the Future. We are excited to have you back. If you have registered before, please use your old login. If not, please use your employee id ($id) to register.";
                     echo "<form method = \"post\" action=\"send-email.php\" id=\"mail\"><input name=\"email\" value=\"$email\" type=\"hidden\"></form>";
