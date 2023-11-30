@@ -4,6 +4,7 @@
         if ($_SESSION['new_e_token'] == TRUE) header("Location: employee_register.php");
     }
     else if (isset($_SESSION['e_logged_in']) && $_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
+    else if (isset($_SESSION['e_forgot']) || isset($_SESSION['u_forgot'])) header("Location: Logout.php");
 ?>
 
 <!DOCTYPE html>
@@ -43,16 +44,16 @@
                 </div>
                 
                 <div class="text-center p-t-90">
-                    <a class="txt1" href="forgot_pass.php">
-                        Forgot Password
-                    </a>
-                </div>
-                
-                <div class="text-center p-t-90">
                     <a class="txt1" href="employee_register_code.php">
                         &nbsp;&nbsp;&nbsp;New Employee? Register
                     </a>
                 </div> 
+
+                <div class="text-center p-t-90">
+                    <a class="txt1" href="e_forgot.php">
+                        Forgot Password or Employee ID
+                    </a>
+                </div>
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">
