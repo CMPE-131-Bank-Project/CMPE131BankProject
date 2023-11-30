@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if ($_SESSION['e_logged_in'] == TRUE) header("Location: employee.php");
+  else if ($_SESSION['logged_in'] == TRUE) header("Location: user.php");
+  else if (isset($_SESSION['u_forgot']) == FALSE && isset($_SESSION['e_forgot']) == FALSE) header("Location: Homepage.html");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +12,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="forgot.css">
 <link rel="icon" type="image/png" href="lock.ico"/>
-
 <title>  Forgot Password </title>
 
 </head>
@@ -20,25 +26,26 @@
                 <div class="text-center">
                   <h3><i class="fa fa-lock fa-4x"style="color: gray;"></i></h3>
                   <h2 class="text-center"><b>Forgot Password?</b></h2>
-                  <p>Please enter your email address to reset your password. You need a valid account in order to use this function. </p>
+                  <p>Please enter your email address to reset your password or recover your username.</p>
                   <div class="panel-body">
 
-                    <form id="forgot-form" role="form" autocomplete="off" class="form" method="post">
+                    <form id="forgot-form" action="forgot_process.php" role="form" autocomplete="off" class="form" method="post">
     
                       <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                          <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                          <input id="email" name="email" placeholder="email address" class="form-control"  type="email" required>
                         </div>
                       </div>
                       <div class="form-group">
-                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                        <button name="pass" class="btn btn-lg btn-primary btn-block" value="1" type="submit">Reset Password</button>
                       </div>
                       <div class="form-group">
-                        <a href="EmployeeLogin.php" class="btn btn-lg btn-secondary btn-block">Back to Login</a>
+                        <button name="user" class="btn btn-lg btn-primary btn-block" value="1" type="submit">Forgot Username</button>
                       </div>
-                      
-                      <input type="hidden" class="hide" name="token" id="token" value=""> 
+                      <div class="form-group">
+                        <a href="Logout.php" class="btn btn-lg btn-secondary btn-block">Home</a>
+                      </div>
                     </form>
     
                   </div>
