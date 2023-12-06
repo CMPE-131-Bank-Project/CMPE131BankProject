@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Title of your page</title>
+
+<style type="text/css">
+
+.container{
+
+width:90%;
+
+border: 1px solid black;
+
+padding: 10px;
+
+}
+
+.accInfo{
+
+border:1px solid black;
+
+}
+
+.container ul{
+
+list-style:none;
+
+padding:0;
+
+margin:0;  
+
+}
+
+body {
+    background: #fbf7b4;
+}
+
+.container li{
+
+display: block;
+
+padding: 15px;
+
+border:1px solid #DDDDDD;
+
+margin-bottom: 30px;
+
+border-radius: 3px;  
+
+}
+
+
+.container li > label{
+
+display: block;
+
+float: left;
+
+margin-top: -19px;
+
+background: #faa2a7;
+
+height: 14px;
+
+padding: 2px 5px 2px 5px;
+
+color: #000000;
+
+font-size: 14px;
+
+overflow: hidden;
+
+font-family: Arial, Helvetica, sans-serif;  
+
+}
+</style>
+
+<script src="script.js"></script>
+
+</head>
+
+<body>
+
+ 
+
+<h1>BANKING ACCOUNT</h1>
+
+<div class="container">
+
+<form>
+
+<ul>
+
+<li class="accInfo">
+
+<label>Account Info </label>
+
+<table cellpadding="5">
+
+<tr>
+
+<td>
+
+Name:
+
+<input type="text" name="accountinfo" id="accountinfo" value="">
+
+</td>
+
+<td>
+
+Account Type:<br>
+
+<input type="radio" name="acctype" value="1" checked> Saving
+
+<input type="radio" name="acctype" value="2"> Checking
+
+</td>
+
+</tr>
+
+</table>
+
+</li>
+
+<li class="transInfo">
+
+<label>Transactions</label>
+
+<table cellpadding="5" border="0" width="100%">
+
+<tr>
+
+<td>
+
+Amount
+
+<input type="text" name="amntinfo" id="amntinfo" value="">
+
+</td>
+
+<td>
+
+Transfer From
+
+<select name="transFrm" id="transFrm">
+
+<option value="0"> </option>
+
+<option value="1">Saving</option>
+
+<option value="2">Checking</option>
+
+</select>
+
+Transfer To
+
+<select name="transTo" id="transTo">
+
+<option value="0"> </option>
+
+<option value="1">Saving</option>
+
+<option value="2">Checking</option>
+
+</select><br>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="2">
+
+<div style="padding-top:10px;">
+
+<span style="padding-right:15%;"><button type="button" name="deposit" id="deposit" style="padding:5px;" onclick="return depositAmt();" >Deposit</button></span>
+
+<span style="padding-right:15%;"><button type="button" name="withdrw" id="withdrw" style="padding:5px;" onclick="return withdrawAmt();">Withdraw</button></span>
+
+<span style="padding-right:15%;"><button type="button" name="tranfr" id="tranfr" style="padding:5px;" onclick="return transferAmt();" >Transfer</button></span>
+
+<span style="padding-right:15%;"><button type="button" name="viewTrans" id="viewTrans" style="padding:5px;" onclick="return viewTransaction();">View Transaction</button></span>
+
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+</li>
+
+<li class="accInfo">
+
+<label for="viewTransInfo"> View Transactions </label>
+
+<div id="accDesc">
+
+Name: - <br>
+
+Account: - <br>
+
+Initial Balance: $10000.00 <br>
+
+<table cellpadding="2" cellpadding="2" border="1" width="100%">
+
+<tr>
+
+<th>Description</th>
+
+<th>Amount</th>
+
+<th>Balance</th>
+
+</tr>
+
+<tr>
+
+<td colspan="3" align="center">No transaction found</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</li>
+
+</ul>
+
+</form>
+
+</div>
+
+</body>
+
+</html>
+<script type="text/javascript">
+var initialAmt = actualamt = 1000.00;
+
+var actions = [];
+
+var incVal = 0;
+
+var actions = new Array();
+
+var accountTypes = {1:"Saving", 2:"Checking"};
+
+function depositAmt(){
+
+var amtval = document.getElementById("amntinfo").value;
+
+var accType = document.getElementsByName("acctype");
+
+if (amtval == ""){
+
+alert("Please enter the amount to deposit!");
+
+return false;
+
+}else if(isNaN(amtval)){
+
+alert('Invalid amount is given. Please enter the valid amount!');
+
+return false;
+
+}
+
+else{
+
+var result = parseFloat(amtval) + parseFloat(initialAmt);
+
+actions[incVal] = [];
+
+actions[incVal]["title"] = "Deposit";
+
+actions[incVal]["amountval"] = amtval;
+
+actions[incVal]["balance"] = result;
+
+initialAmt = result;
+
+incVal++;
+
+return true;
+
+}
+
+}
+
+function withdrawAmt(){
+
+var amtval = document.getElementById("amntinfo").value;
+
+var accType = document.getElementsByName("acctype");
+
+if (amtval == ""){
+
+alert("Please enter the amount to deposit!");
+
+return false;
+
+}else if(isNaN(amtval)){
+
+alert('Invalid amount is given. Please enter the valid amount!');
+
+return false;
+
+}
+
+else{
+
+var result = parseFloat(initialAmt) - parseFloat(amtval);
+
+actions[incVal] = [];
+
+actions[incVal]["title"] = "Withdraw";
+
+actions[incVal]["amountval"] = amtval;
+
+actions[incVal]["balance"] = result;
+
+initialAmt = result;
+
+incVal++;
+
+return true;
+
+}
+
+}
+
+function transferAmt(){
+
+var amtval = document.getElementById("amntinfo").value;
+
+var accType = document.getElementsByName("acctype");
+
+var transfrm = document.getElementById("transFrm").value;
+
+var transto = document.getElementById("transTo").value;
+
+if (amtval == ""){
+
+alert("Please enter the amount to deposit!");
+
+return false;
+
+}else if(isNaN(amtval)){
+
+alert('Invalid amount is given. Please enter the valid amount!');
+
+return false;
+
+}
+
+else if(transfrm == 0 && transto == 0){
+
+alert("Please select the transfer from account and to account!");
+
+return false;
+
+}
+
+else if(transfrm == transto){
+
+alert("The from and to account must be different either from saving to checking or checking to saving");
+
+return false;
+
+}else if(transfrm == 0 && transto > 0){ //-- transfer to
+
+var result = parseFloat(initialAmt) - parseFloat(amtval);
+
+actions[incVal] = [];
+
+actions[incVal]["title"] = "Transfer To "+accountTypes[transto];
+
+actions[incVal]["amountval"] = amtval;
+
+actions[incVal]["balance"] = result;
+
+initialAmt = result;
+
+incVal++;
+
+}
+
+else if(transfrm > 0 && transto == 0){ //-- transfer to
+
+var result = parseFloat(initialAmt) + parseFloat(amtval);
+
+actions[incVal] = [];
+
+actions[incVal]["title"] = "Transfer From "+accountTypes[transfrm];
+
+actions[incVal]["amountval"] = amtval;
+
+actions[incVal]["balance"] = result;
+
+initialAmt = result;
+
+incVal++;
+
+}
+
+return true;
+
+}
+
+function viewTransaction(){
+
+var username = document.getElementById("accountinfo").value;
+
+var accType = document.querySelector('input[name="acctype"]:checked').value;
+
+var htmlVal = "Name: "+username+" <br> Account: "+accountTypes[accType]+" <br> Initial Balance: $"+actualamt+" <br>";
+
+htmlVal += "<table cellpadding=\"2\" cellpadding=\"2\" border=\"1\" width=\"100%\">";
+
+htmlVal += "<tr> <th>Description</th><th>Amount</th><th>Balance</th> </tr>";
+
+var i;
+
+if(actions.length > 0){
+
+for (i=0; i<actions.length; i++){
+
+htmlVal += "<tr><td>"+actions[i]["title"]+"</td><td>$"+actions[i]["amountval"]+"</td><td>$"+actions[i]["balance"]+"</td></tr>";
+
+}
+
+}else{
+
+htmlVal += "<tr><td colspan=\"3\" align=\"center\"> No actions found </td></tr>";
+
+}
+
+htmlVal += "</table>";
+
+document.getElementById("accDesc").innerHTML = htmlVal;
+
+}
+</script>
